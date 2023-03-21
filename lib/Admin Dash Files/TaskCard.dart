@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../Utils/AppDrawer.dart';
 
-class Task extends StatefulWidget {
-  const Task({Key ? key}) : super(key:key);
+class TaskCard extends StatefulWidget {
+  const TaskCard({Key ? key}) : super(key:key);
   @override
-  State<Task>createState() =>_Task();
+  State<TaskCard>createState() =>_TaskCard();
 }
-class _Task extends State<Task>
+class _TaskCard extends State<TaskCard>
 {
   @override
   Widget build(BuildContext context)
   {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:Color.fromARGB(255,235,215,164),
       drawer: const AppDrawer(),
       appBar: AppBar(
         toolbarHeight: 60,

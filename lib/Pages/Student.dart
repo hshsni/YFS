@@ -18,7 +18,7 @@ class _Student extends State<Student>
       appBar: AppBar(
         toolbarHeight: 60,
         title: const Text(
-          'Students',
+          'Score',
           style: TextStyle(
             fontSize: 30,
           ),
@@ -26,7 +26,7 @@ class _Student extends State<Student>
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor:  Color.fromARGB(255,235,215,164),
       body: SafeArea(
         child: SingleChildScrollView(child: Column(
           children:[

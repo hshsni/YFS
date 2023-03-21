@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../Utils/AppDrawer.dart';
 
-class AddSubAdmin extends StatefulWidget {
-  const AddSubAdmin({Key? key}) : super(key: key);
+class AddSchool extends StatefulWidget {
+  const AddSchool({Key? key}) : super(key: key);
 
   @override
-  State<AddSubAdmin> createState() => _AddSubAdmin();
+  State<AddSchool> createState() => _AddSchool();
 }
 
-class _AddSubAdmin extends State<AddSubAdmin> {
+class _AddSchool extends State<AddSchool> {
   final _registerFormKey = GlobalKey<FormState>();
 
   final _nameTextController = TextEditingController();
@@ -27,12 +27,12 @@ class _AddSubAdmin extends State<AddSubAdmin> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255,235,215,164),
-      //drawer: const AppDrawer(),
+      backgroundColor: Color.fromARGB(255,235,215,164),
+      drawer: const AppDrawer(),
       appBar: AppBar(
         toolbarHeight: 60,
         title: const Text(
-          'Add Sub Admin',
+          'Add School',
           style: TextStyle(
             fontSize: 30,
           ),
@@ -55,7 +55,7 @@ class _AddSubAdmin extends State<AddSubAdmin> {
                             controller: _nameTextController,
                             keyboardType: TextInputType.name,
                             decoration: InputDecoration(
-                              hintText: 'Enter User Name',
+                              hintText: 'Enter School Name',
                               icon: Icon(
                                 Icons.person,
                                 color: Colors.amber,
@@ -86,7 +86,7 @@ class _AddSubAdmin extends State<AddSubAdmin> {
                             controller: _emailTextController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'Enter Email',
+                              hintText: 'Enter School Email',
                               icon: Icon(
                                 Icons.email,
                                 color: Colors.amber,
@@ -117,7 +117,7 @@ class _AddSubAdmin extends State<AddSubAdmin> {
                             controller: _passwordTextController,
                             obscureText: true,
                             decoration: InputDecoration(
-                              hintText: 'Enter Password',
+                              hintText: 'Enter School Password',
                               icon: Icon(
                                 Icons.password,
                                 color: Colors.amber,
@@ -164,7 +164,7 @@ class _AddSubAdmin extends State<AddSubAdmin> {
                                 User? user;
 
                                 UserCredential userCredential =
-                                    await auth.createUserWithEmailAndPassword(
+                                await auth.createUserWithEmailAndPassword(
                                   email: _emailTextController.text,
                                   password: _passwordTextController.text,
                                 );
@@ -187,17 +187,16 @@ class _AddSubAdmin extends State<AddSubAdmin> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => const AddSubAdmin()));
+                                          builder: (_) => const AddSchool()));
                                 }).catchError((error) =>
                                     print("Failed to add user: $error"));
                               },
-                              style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 172,62,65),
+                              style: ElevatedButton.styleFrom( primary: Color.fromARGB(255, 172,62,65),
                                 fixedSize:
-                                    Size(size.width * 0.58, size.height * 0.09),
+                                Size(size.width * 0.58, size.height * 0.09),
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
-                                      BorderRadius.circular(10), // <-- Radius
+                                  BorderRadius.circular(10), // <-- Radius
                                 ),
                               ),
                               child: const Text(
