@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddSubAdmin.dart';
-
 import '../Utils/AppDrawer.dart';
 
 class ViewTrainer extends StatefulWidget {
@@ -14,8 +12,8 @@ class _ViewTrainer extends State<ViewTrainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
         appBar: AppBar(
+          elevation: 0,
           toolbarHeight: 60,
           title: const Text(
             'View Trainer',
@@ -25,21 +23,16 @@ class _ViewTrainer extends State<ViewTrainer> {
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
-
         ),
-        backgroundColor: Color.fromARGB(255,235,215,164),
+        backgroundColor: Color.fromARGB(255, 235, 215, 164),
         body: SafeArea(
             child: SingleChildScrollView(
-              child: Column(children: [
-
-                Padding(
-                    padding: const EdgeInsets.all(70.0),
-                    child: Center(
-                        child: Wrap(
-                            spacing: 20.0,
-                            runSpacing: 20.0,
-                            children: [
-                              /*     GestureDetector(
+          child: Column(children: [
+            Padding(
+                padding: const EdgeInsets.all(70.0),
+                child: Center(
+                    child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
+                  /*     GestureDetector(
                           onTap: () {
                             setState(() {
                               Navigator.pushReplacement(context,
@@ -138,15 +131,18 @@ class _ViewTrainer extends State<ViewTrainer> {
                                 )),
                           ),
                           */
-                            ]))),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Center(
-                      child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
-
-                      ])),
+                ]))),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Center(
+                child: Wrap(
+                  spacing: 20.0,
+                  runSpacing: 20.0,
+                  children: [],
                 ),
-              ]),
-            )));
+              ),
+            ),
+          ]),
+        )));
   }
 }

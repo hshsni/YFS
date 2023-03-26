@@ -3,17 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../Utils/AppDrawer.dart';
 import '../Utils/size_config.dart';
 
-class AddTrainer extends StatefulWidget {
-  const AddTrainer({Key? key}) : super(key: key);
+class AddAdmin extends StatefulWidget {
+  const AddAdmin({Key? key}) : super(key: key);
 
   @override
-  State<AddTrainer> createState() => _AddTrainer();
+  State<AddAdmin> createState() => _AddAdmin();
 }
 
-class _AddTrainer extends State<AddTrainer> {
+class _AddAdmin extends State<AddAdmin> {
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -30,7 +29,7 @@ class _AddTrainer extends State<AddTrainer> {
       _emailTextController.clear();
       _passwordTextController.clear();
       final snackBar = SnackBar(
-        content: const Text('Trainer Added!'),
+        content: const Text('Admin Added!'),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {},
@@ -49,10 +48,7 @@ class _AddTrainer extends State<AddTrainer> {
       appBar: AppBar(
         toolbarHeight: 60,
         title: const Text(
-          '',
-          style: TextStyle(
-            fontSize: 30,
-          ),
+          "",
         ),
         centerTitle: true,
         elevation: 0,
@@ -70,7 +66,7 @@ class _AddTrainer extends State<AddTrainer> {
                     child: Column(
                       children: [
                         Text(
-                          "Add Trainer",
+                          "Add Admin",
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
@@ -79,8 +75,8 @@ class _AddTrainer extends State<AddTrainer> {
                           controller: _nameTextController,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            hintText: 'Enter Trainer Name',
-                            icon: const Icon(
+                            hintText: 'Enter Name',
+                            icon: Icon(
                               Icons.person,
                               color: Colors.amber,
                               size: 45.0,
@@ -109,8 +105,8 @@ class _AddTrainer extends State<AddTrainer> {
                           controller: _emailTextController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            hintText: 'Enter Trainer Email',
-                            icon: const Icon(
+                            hintText: 'Enter Email',
+                            icon: Icon(
                               Icons.email,
                               color: Colors.amber,
                               size: 45.0,
@@ -139,8 +135,8 @@ class _AddTrainer extends State<AddTrainer> {
                           controller: _passwordTextController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            hintText: 'Enter Trainer Password',
-                            icon: const Icon(
+                            hintText: 'Enter Password',
+                            icon: Icon(
                               Icons.password,
                               color: Colors.amber,
                               size: 45.0,
@@ -207,16 +203,16 @@ class _AddTrainer extends State<AddTrainer> {
 
                                 users.doc(userCredential.user?.uid).set({
                                   'name': _nameTextController.text,
-                                  'role': 'trainer',
+                                  'role': 'admin',
                                   'email': _emailTextController.text
                                 }).then((value) {
                                   updateTextandClear();
                                 }).catchError((error) =>
-                                    print("Failed to add trainer: $error"));
+                                    print("Failed to add admin: $error"));
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color.fromARGB(255, 172, 62, 65),
+                              primary: Color.fromARGB(255, 172, 62, 65),
                               fixedSize:
                                   Size(size.width * 0.58, size.height * 0.09),
                               shape: RoundedRectangleBorder(

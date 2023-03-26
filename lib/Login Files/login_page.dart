@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         college = data['college'];
       }
 
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AdminHub(),
         ),

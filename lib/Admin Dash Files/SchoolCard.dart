@@ -15,7 +15,6 @@ class _SchoolCard extends State<SchoolCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
         appBar: AppBar(
           toolbarHeight: 60,
           title: const Text(
@@ -26,6 +25,7 @@ class _SchoolCard extends State<SchoolCard> {
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         backgroundColor: Color.fromARGB(255,235,215,164),
         body: SafeArea(
@@ -42,7 +42,7 @@ class _SchoolCard extends State<SchoolCard> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              Navigator.pushReplacement(context,
+                              Navigator.push(context,
                                   MaterialPageRoute(builder: (_) => AddSchool()));
                             });
                           },
@@ -50,7 +50,7 @@ class _SchoolCard extends State<SchoolCard> {
                               width: 250.0,
                               height: 180.0,
                               child: Card(
-                                color: Color.fromARGB(255, 21, 21, 21),
+                                color: Colors.white,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -67,7 +67,7 @@ class _SchoolCard extends State<SchoolCard> {
                                         SizedBox(height: 16.0),
                                         Text("Add School",
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20.0,
                                             )),
@@ -75,7 +75,7 @@ class _SchoolCard extends State<SchoolCard> {
                                         Text(
                                           "1 Items",
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                           ),
                                         )
                                       ],
@@ -95,7 +95,7 @@ class _SchoolCard extends State<SchoolCard> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context, MaterialPageRoute(builder: (_) => ViewSchool()));
                               });
                             },
@@ -103,7 +103,7 @@ class _SchoolCard extends State<SchoolCard> {
                                 width: 250.0,
                                 height: 180.0,
                                 child: Card(
-                                  color: Color.fromARGB(255, 21, 21, 21),
+                                  color: Colors.white,
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -120,7 +120,7 @@ class _SchoolCard extends State<SchoolCard> {
                                           SizedBox(height: 16.0),
                                           Text("View School",
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 20.0,
                                               )),
@@ -128,7 +128,7 @@ class _SchoolCard extends State<SchoolCard> {
                                           Text(
                                             "1 Items",
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                             ),
                                           )
                                         ],
@@ -142,7 +142,6 @@ class _SchoolCard extends State<SchoolCard> {
                   padding: const EdgeInsets.all(12.0),
                   child: Center(
                       child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
-
                       ])),
                 ),
               ]),

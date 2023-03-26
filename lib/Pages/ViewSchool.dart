@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddSubAdmin.dart';
+import 'package:youth_compass_application/Pages/AddAdmin.dart';
 
 import '../Utils/AppDrawer.dart';
 

@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
-import 'Login Files/login_page.dart';
 import 'Admin Dash Files/AdminDashboard.dart';
-
-
+import 'Admin Dash Files/AdminHub.dart';
+import 'Login Files/login_page.dart';
+import 'Pages/AddAdmin.dart';
+import 'Pages/AddSchool.dart';
+import 'Pages/AddTrainer.dart';
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AdminHub(),
+      home: LoginPage(),
     );
   }
 }

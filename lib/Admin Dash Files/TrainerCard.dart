@@ -15,7 +15,6 @@ class _TrainerCard extends State<TrainerCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
         appBar: AppBar(
           toolbarHeight: 60,
           title: const Text(
@@ -26,6 +25,7 @@ class _TrainerCard extends State<TrainerCard> {
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         backgroundColor: Color.fromARGB(255,235,215,164),
         body: SafeArea(
@@ -42,7 +42,7 @@ class _TrainerCard extends State<TrainerCard> {
                         GestureDetector(
                           onTap: () {
                             setState(() {
-                              Navigator.pushReplacement(context,
+                              Navigator.push(context,
                                   MaterialPageRoute(builder: (_) => AddTrainer()));
                             });
                           },
@@ -50,7 +50,7 @@ class _TrainerCard extends State<TrainerCard> {
                               width: 250.0,
                               height: 180.0,
                               child: Card(
-                                color: Color.fromARGB(255, 21, 21, 21),
+                                color: Colors.white,
                                 elevation: 2.0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -67,7 +67,7 @@ class _TrainerCard extends State<TrainerCard> {
                                         SizedBox(height: 16.0),
                                         Text("Add Trainer",
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20.0,
                                             )),
@@ -75,7 +75,7 @@ class _TrainerCard extends State<TrainerCard> {
                                         Text(
                                           "1 Items",
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.black,
                                           ),
                                         )
                                       ],
@@ -103,7 +103,7 @@ class _TrainerCard extends State<TrainerCard> {
                                 width: 250.0,
                                 height: 180.0,
                                 child: Card(
-                                  color: Color.fromARGB(255, 21, 21, 21),
+                                  color: Colors.white,
                                   elevation: 2.0,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -120,7 +120,7 @@ class _TrainerCard extends State<TrainerCard> {
                                           SizedBox(height: 16.0),
                                           Text("View Trainer",
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 20.0,
                                               )),
@@ -128,7 +128,7 @@ class _TrainerCard extends State<TrainerCard> {
                                           Text(
                                             "1 Items",
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                             ),
                                           )
                                         ],

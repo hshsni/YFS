@@ -14,8 +14,7 @@ class _TaskCard extends State<TaskCard>
   {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor:Color.fromARGB(255,235,215,164),
-      drawer: const AppDrawer(),
+      backgroundColor:const Color.fromARGB(255,235,215,164),
       appBar: AppBar(
         toolbarHeight: 60,
         title: const Text(
@@ -26,6 +25,7 @@ class _TaskCard extends State<TaskCard>
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
+        elevation:0,
       ),
       body: SafeArea(
         child:SingleChildScrollView(
@@ -50,7 +50,7 @@ class _TaskCard extends State<TaskCard>
                           decoration: InputDecoration(
                             hintText: 'Name of the Volunteer',
                             icon: Icon(Icons.person,color: Colors.amber,size: 45.0,),
-                            hintStyle: const TextStyle(color: Colors.white),
+
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                               const BorderSide(width: 3, color: Colors.white),
@@ -83,7 +83,7 @@ class _TaskCard extends State<TaskCard>
                           decoration: InputDecoration(
                             hintText: 'Name of the Schools',
                             icon: Icon(Icons.school_sharp,color: Colors.amber,size: 45.0,),
-                            hintStyle: const TextStyle(color: Colors.white),
+
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                               const BorderSide(width: 3, color: Colors.white),
@@ -116,7 +116,7 @@ class _TaskCard extends State<TaskCard>
                           decoration: InputDecoration(
                             hintText: 'Area of the Schools',
                             icon: Icon(Icons.location_city_sharp,color: Colors.amber,size: 45.0,),
-                            hintStyle: const TextStyle(color: Colors.white),
+
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                               const BorderSide(width: 3, color: Colors.white),
@@ -149,8 +149,7 @@ class _TaskCard extends State<TaskCard>
                           decoration: InputDecoration(
                             hintText: 'Volunteer Id',
                             icon: Icon(Icons.format_list_numbered_rtl_sharp,color: Colors.amber,size: 45.0,),
-                            hintStyle: const TextStyle(color: Colors.white),
-                            enabledBorder: OutlineInputBorder(
+                                       enabledBorder: OutlineInputBorder(
                               borderSide:
                               const BorderSide(width: 3, color: Colors.white),
                               borderRadius: BorderRadius.circular(15),

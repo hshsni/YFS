@@ -49,7 +49,7 @@ class _Student extends State<Student>
                         decoration: InputDecoration(
                           hintText: 'Name of the Student',
                           icon: const Icon(Icons.person,color: Colors.amber,size: 45.0,),
-                          hintStyle: const TextStyle(color: Colors.white),
+
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                             const BorderSide(width: 3, color: Colors.white),
@@ -82,7 +82,7 @@ class _Student extends State<Student>
                         decoration: InputDecoration(
                           hintText: 'Name of the Schools',
                           icon: const Icon(Icons.school_sharp,color: Colors.amber,size: 45.0,),
-                          hintStyle: const TextStyle(color: Colors.white),
+
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                             const BorderSide(width: 3, color: Colors.white),
@@ -115,7 +115,6 @@ class _Student extends State<Student>
                         decoration: InputDecoration(
                           hintText: 'Roll Number',
                           icon: const Icon(Icons.numbers,color: Colors.amber,size: 45.0,),
-                          hintStyle: const TextStyle(color: Colors.white),
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                             const BorderSide(width: 3, color: Colors.white),

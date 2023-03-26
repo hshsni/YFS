@@ -8,17 +8,20 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+
+
     return Drawer(
       //backgroundColor: Colors.black,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color:Color.fromARGB(255, 172,62,65),
+              color: Color.fromARGB(255, 172, 62, 65),
             ),
-            child:
-            ListTile(
+            child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.white24,
                 child: Icon(
@@ -27,11 +30,13 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
               title: Text(
-                "Abhishek Kumar",
-                style: TextStyle(color: Colors.white),),
-              subtitle: Text
-                ("Admin",
-                style: TextStyle(color: Colors.white),),
+                user?.displayName ?? "User",
+                style: TextStyle(color: Colors.white),
+              ),
+              subtitle: Text(
+                user?.uid ?? "id",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           // ListTile(
@@ -59,13 +64,17 @@ class AppDrawer extends StatelessWidget {
             title: const Text('Logout'),
             //onTap: _signOut(context),
           ),
-          ElevatedButton(onPressed: (){_signOut(context);}, child: Text('Sign Out')),
+          ElevatedButton(
+              onPressed: () {
+                _signOut(context);
+              },
+              child: Text('Sign Out')),
         ],
       ),
     );
   }
 
-    _signOut(BuildContext context) async {
+  _signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(

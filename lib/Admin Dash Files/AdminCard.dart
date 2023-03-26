@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddSubAdmin.dart';
+import 'package:youth_compass_application/Pages/AddAdmin.dart';
 import 'package:youth_compass_application/Pages/View_SubAdmin.dart';
 import '../Utils/AppDrawer.dart';
 
@@ -14,17 +14,17 @@ class _AdminCard extends State<AdminCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
         appBar: AppBar(
           toolbarHeight: 60,
           title: const Text(
-            'Sub-Admin',
+            'Admin',
             style: TextStyle(
               fontSize: 30,
             ),
           ),
           centerTitle: true,
           backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         backgroundColor:  Color.fromARGB(255,235,215,164),
         body: SafeArea(
@@ -41,15 +41,15 @@ class _AdminCard extends State<AdminCard> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => AddSubAdmin()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => AddAdmin()));
                         });
                       },
                       child: SizedBox(
                           width: 250.0,
                           height: 180.0,
                           child: Card(
-                            color: Color.fromARGB(255, 21, 21, 21),
+                            color: Colors.white,
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -64,9 +64,9 @@ class _AdminCard extends State<AdminCard> {
                                       width: 64.0,
                                     ),
                                     SizedBox(height: 16.0),
-                                    Text("Add Sub-Admin",
+                                    Text("Add Admin",
                                         style: TextStyle(
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.0,
                                         )),
@@ -74,7 +74,7 @@ class _AdminCard extends State<AdminCard> {
                                     Text(
                                       "1 Items",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                       ),
                                     )
                                   ],
@@ -94,15 +94,15 @@ class _AdminCard extends State<AdminCard> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (_) => View_SubAdmin()));
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (_) => View_Admin()));
                       });
                     },
                     child: SizedBox(
                         width: 250.0,
                         height: 180.0,
                         child: Card(
-                          color: Color.fromARGB(255, 21, 21, 21),
+                          color: Colors.white,
                           elevation: 2.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -119,7 +119,7 @@ class _AdminCard extends State<AdminCard> {
                                   SizedBox(height: 16.0),
                                   Text("View Sub Admin",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20.0,
                                       )),
@@ -127,7 +127,7 @@ class _AdminCard extends State<AdminCard> {
                                   Text(
                                     "1 Items",
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                   )
                                 ],

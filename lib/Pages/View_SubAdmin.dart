@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddSubAdmin.dart';
+import 'package:youth_compass_application/Pages/AddAdmin.dart';
 
 import '../Utils/AppDrawer.dart';
 
-class View_SubAdmin extends StatefulWidget {
-  const View_SubAdmin({Key? key}) : super(key: key);
+class View_Admin extends StatefulWidget {
+  const View_Admin({Key? key}) : super(key: key);
 
   @override
-  State<View_SubAdmin> createState() => _View_SubAdmin();
+  State<View_Admin> createState() => _View_Admin();
 }
 
-class _View_SubAdmin extends State<View_SubAdmin> {
+class _View_Admin extends State<View_Admin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _View_SubAdmin extends State<View_SubAdmin> {
         appBar: AppBar(
           toolbarHeight: 60,
           title: const Text(
-            'View Sub-Admin',
+            'View Admin',
             style: TextStyle(
               fontSize: 30,
             ),
