@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     if (user != null) {
       var collection = FirebaseFirestore.instance.collection('userdata');
       var querySnapshot =
-          await collection.where('id', isEqualTo: user.uid).get();
+      await collection.where('id', isEqualTo: user.uid).get();
       for (var snapshot in querySnapshot.docs) {
         Map<String, dynamic> data = snapshot.data();
         college = data['college'];
@@ -89,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 235, 215, 164),
         body: FutureBuilder(
           future: _initializeFirebase(),
           builder: (context, snapshot) {
@@ -99,9 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 24.0),
-                      child: Text(
-                        'Welcome!',
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Center( child:Text(
+                        'Welcome To ',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -109,6 +110,20 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Center( child:Text(
+                        ' Youth Compass',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      ),
+                    ),
+                    SizedBox(height: 50.0),
                     Form(
                       key: _formKey,
                       child: SingleChildScrollView(
@@ -120,18 +135,21 @@ class _LoginPageState extends State<LoginPage> {
                               validator: (value) => validateEmail(
                                 email: value,
                               ),
+
                               decoration: InputDecoration(
-                                hintText: 'Email',
+                                hintText: 'Enter Email',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       width: 3,
                                       color: Color.fromRGBO(52, 73, 85, 1)),
                                   borderRadius: BorderRadius.circular(15),
+
                                 ),
+
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       width: 2,
-                                      color: Color.fromRGBO(52, 73, 85, 1)),
+                                      color: Colors.black),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 errorBorder: OutlineInputBorder(
@@ -140,8 +158,9 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
+
                             ),
-                            SizedBox(height: 8.0),
+                            SizedBox(height: 50.0),
                             TextFormField(
                               controller: _passwordTextController,
                               focusNode: _focusPassword,
@@ -160,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       width: 2,
-                                      color: Color.fromRGBO(52, 73, 85, 1)),
+                                      color: Colors.black),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 errorBorder: OutlineInputBorder(
@@ -170,79 +189,80 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 24.0),
+                            SizedBox(height: 55.0),
                             _isProcessing
                                 ? CircularProgressIndicator()
                                 : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateColor.resolveWith(
-                                              (states) => const Color.fromRGBO(
-                                                  249, 170, 51, 1),
-                                            ),
-                                          ),
-                                          onPressed: () async {
-                                            _focusEmail.unfocus();
-                                            _focusPassword.unfocus();
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateColor.resolveWith(
+                                            (states) => const Color.fromARGB(255, 172, 62, 65),
 
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              setState(() {
-                                                _isProcessing = true;
-                                              });
-
-                                              User? user = await FireAuth
-                                                  .signInUsingEmailPassword(
-                                                email:
-                                                    _emailTextController.text,
-                                                password:
-                                                    _passwordTextController
-                                                        .text,
-                                              );
-
-                                              setState(() {
-                                                _isProcessing = false;
-                                              });
-
-                                              if (user != null) {
-                                                try {} on FirebaseAuthException catch (e) {
-                                                  if (e.code ==
-                                                      'weak-password') {
-                                                  } else if (e.code ==
-                                                      'email-already-in-use') {
-                                                  } else if (e.code ==
-                                                      'user-not-found') {
-                                                  } else if (e.code ==
-                                                      'wrong-password') {}
-
-                                                  print(e
-                                                      .code); //Add this line to see other firebase exceptions.
-                                                } catch (e) {
-                                                  print(e);
-                                                }
-                                                Navigator.of(context)
-                                                    .pushAndRemoveUntil(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                AdminHub()),
-                                                        (route) => false);
-                                              }
-                                            }
-                                          },
-                                          child: Text(
-                                            'Sign In',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
                                       ),
-                                    ],
-                                  )
+                                      fixedSize: MaterialStateProperty.all(const Size(180, 50)),
+                                    ),
+                                    onPressed: () async {
+                                      _focusEmail.unfocus();
+                                      _focusPassword.unfocus();
+
+                                      if (_formKey.currentState!
+                                          .validate()) {
+                                        setState(() {
+                                          _isProcessing = true;
+                                        });
+
+                                        User? user = await FireAuth
+                                            .signInUsingEmailPassword(
+                                          email:
+                                          _emailTextController.text,
+                                          password:
+                                          _passwordTextController
+                                              .text,
+                                        );
+
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
+
+                                        if (user != null) {
+                                          try {} on FirebaseAuthException catch (e) {
+                                            if (e.code ==
+                                                'weak-password') {
+                                            } else if (e.code ==
+                                                'email-already-in-use') {
+                                            } else if (e.code ==
+                                                'user-not-found') {
+                                            } else if (e.code ==
+                                                'wrong-password') {}
+
+                                            print(e
+                                                .code); //Add this line to see other firebase exceptions.
+                                          } catch (e) {
+                                            print(e);
+                                          }
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AdminHub()),
+                                                  (route) => false);
+                                        }
+                                      }
+                                    },
+                                    child: Text(
+                                      'Sign In',
+                                      style:
+                                      TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
