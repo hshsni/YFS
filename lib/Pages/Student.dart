@@ -24,6 +24,7 @@ class _Student extends State<Student>
           ),
         ),
         centerTitle: true,
+        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
       backgroundColor:  Color.fromARGB(255,235,215,164),

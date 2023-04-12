@@ -16,14 +16,18 @@ class _TaskCard extends State<TaskCard>
     return Scaffold(
       backgroundColor:const Color.fromARGB(255,235,215,164),
       appBar: AppBar(
+
         toolbarHeight: 60,
+        foregroundColor: Colors.black,
         title: const Text(
           'Tasks',
           style: TextStyle(
             fontSize: 30,
+            color: Colors.black
           ),
         ),
         centerTitle: true,
+
         backgroundColor: Colors.transparent,
         elevation:0,
       ),

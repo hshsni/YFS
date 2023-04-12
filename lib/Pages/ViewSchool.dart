@@ -17,13 +17,16 @@ class _ViewSchool extends State<ViewSchool> {
         drawer: const AppDrawer(),
         appBar: AppBar(
           toolbarHeight: 60,
+
           title: const Text(
             'View School',
             style: TextStyle(
               fontSize: 30,
+              color: Colors.black
             ),
           ),
           centerTitle: true,
+          foregroundColor: Colors.black,
           backgroundColor: Colors.transparent,
         ),
         backgroundColor: Color.fromARGB(255,235,215,164),

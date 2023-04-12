@@ -52,6 +52,7 @@ class _AddAdmin extends State<AddAdmin> {
         ),
         centerTitle: true,
         elevation: 0,
+        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(

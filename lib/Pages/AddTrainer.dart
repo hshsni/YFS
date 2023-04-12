@@ -56,6 +56,7 @@ class _AddTrainer extends State<AddTrainer> {
         ),
         centerTitle: true,
         elevation: 0,
+        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(

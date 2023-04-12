@@ -24,6 +24,7 @@ class _View_Admin extends State<View_Admin> {
             ),
           ),
           centerTitle: true,
+          foregroundColor: Colors.black,
           backgroundColor: Colors.transparent,
         ),
         backgroundColor: Color.fromARGB(255,235,215,164),

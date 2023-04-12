@@ -20,6 +20,7 @@ class _AdminCard extends State<AdminCard> {
             'Admin',
             style: TextStyle(
               fontSize: 30,
+              color: Colors.black
             ),
           ),
           centerTitle: true,

@@ -21,9 +21,11 @@ class _TrainerCard extends State<TrainerCard> {
             'Trainer',
             style: TextStyle(
               fontSize: 30,
+              color: Colors.black
             ),
           ),
           centerTitle: true,
+          foregroundColor: Colors.black,
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
@@ -89,7 +91,7 @@ class _TrainerCard extends State<TrainerCard> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all(1.0),
+                    padding: const EdgeInsets.all(70.0),
                     child: Center(
                         child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
                           GestureDetector(
