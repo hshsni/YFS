@@ -47,6 +47,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   slide_to_act: ^2.0.1
   font_awesome_flutter: ^10.4.0
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -87,11 +88,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Black.ttf
+        - asset: fonts/Lato-Bold.ttf
+        - asset: fonts/Lato-BoldItalic.ttf
+        - asset: fonts/Lato-Italic.ttf
+        - asset: fonts/Lato-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

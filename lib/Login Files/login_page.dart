@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/AdminDashboard.dart';
+import 'package:youth_compass_application/Login%20Files/sign_up_page.dart';
 
 import '../Admin Dash Files/AdminHub.dart';
 import 'fire_auth.dart';
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Center( child:Text(
-                        ' Youth Compass',
+                        ' Youth Compass!',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -258,6 +259,57 @@ class _LoginPageState extends State<LoginPage> {
                                       'Sign In',
                                       style:
                                       TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 15.0),
+                            const Center(
+                              child: Text(
+                                "Don't have an account ?",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+
+                            ),
+                            const SizedBox(height: 30.0),
+
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25.0),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                        MaterialStateColor.resolveWith(
+                                              (states) => const Color.fromARGB(255, 172, 62, 65),
+
+                                        ),
+                                        fixedSize: MaterialStateProperty.all(const Size(180, 50)),
+                                      ),
+                                      onPressed: ()  {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (_) => SignUpPage()));
+                                      },
+
+
+                                      child: Container(
+                                        height: 40,
+                                        child: const Center(
+                                          child: Text(
+                                            'Sign Up',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),

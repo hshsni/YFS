@@ -33,10 +33,10 @@ class AppDrawer extends StatelessWidget {
                 user?.displayName ?? "User",
                 style: TextStyle(color: Colors.white),
               ),
-              subtitle: Text(
-                user?.uid ?? "id",
-                style: TextStyle(color: Colors.white),
-              ),
+              // subtitle: Text(
+              //   user?.uid ?? "id",
+              //   style: TextStyle(color: Colors.white),
+              // ),
             ),
           ),
           // ListTile(

@@ -1,11 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'Admin Dash Files/AdminDashboard.dart';
-import 'Admin Dash Files/AdminHub.dart';
+import 'package:youth_compass_application/Login%20Files/sign_up_page.dart';
 import 'Login Files/login_page.dart';
-import 'Pages/AddAdmin.dart';
-import 'Pages/AddSchool.dart';
-import 'Pages/AddTrainer.dart';
+
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,9 +18,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Youth Compass',
       theme: ThemeData(
+        fontFamily: 'Lato',
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: SignUpPage(),
     );
   }
 }

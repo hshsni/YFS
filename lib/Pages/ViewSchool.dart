@@ -1,7 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Pages/AddAdmin.dart';
 
+import '../Admin Dash Files/AdminHub.dart';
 import '../Utils/AppDrawer.dart';
+import 'package:flutter/material.dart';
+
+// Import the firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
+//Import firestore database
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ViewSchool extends StatefulWidget {
   const ViewSchool({Key? key}) : super(key: key);
@@ -11,144 +19,55 @@ class ViewSchool extends StatefulWidget {
 }
 
 class _ViewSchool extends State<ViewSchool> {
+  final CollectionReference schools = FirebaseFirestore.instance
+      .collection('School');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
-        appBar: AppBar(
-          toolbarHeight: 60,
-
-          title: const Text(
-            'View School',
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black
-            ),
+      appBar: AppBar(
+        toolbarHeight: 60,
+        elevation: 0,
+        title: const Text(
+          'View Schools',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.black,
           ),
-          centerTitle: true,
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.transparent,
         ),
-        backgroundColor: Color.fromARGB(255,235,215,164),
-        body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(children: [
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: Color.fromARGB(255, 235, 215, 164),
+      body: StreamBuilder(
+        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          if (streamSnapshot.hasData) {
+            return ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  final DocumentSnapshot documentSnapshot =
+                  streamSnapshot.data!.docs[index];
 
-                Padding(
-                    padding: const EdgeInsets.all(70.0),
-                    child: Center(
-                        child: Wrap(
-                            spacing: 20.0,
-                            runSpacing: 20.0,
-                            children: [
-                              /*     GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (_) => AddSubAdmin()));
-                            });
-                          },
-                          child: SizedBox(
-                              width: 250.0,
-                              height: 180.0,
-                              child: Card(
-                                color: Color.fromARGB(255, 21, 21, 21),
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          "assets/Admin.png",
-                                          width: 64.0,
-                                        ),
-                                        SizedBox(height: 16.0),
-                                        Text("Add Sub-Admin",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0,
-                                            )),
-                                        SizedBox(height: 5.0),
-                                        Text(
-                                          "1 Items",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Center(
-                        child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                Navigator.pushReplacement(
-                                    context, MaterialPageRoute(builder: (_) => Admin()));
-                              });
-                            },
-                            child: SizedBox(
-                                width: 250.0,
-                                height: 180.0,
-                                child: Card(
-                                  color: Color.fromARGB(255, 21, 21, 21),
-                                  elevation: 2.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Image.asset(
-                                            "assets/Admin.png",
-                                            width: 64.0,
-                                          ),
-                                          SizedBox(height: 16.0),
-                                          Text("View Sub-Admin",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20.0,
-                                              )),
-                                          SizedBox(height: 5.0),
-                                          Text(
-                                            "1 Items",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )),
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            subtitle: Text(documentSnapshot['email']),
+                            title: Text(documentSnapshot.id.toString()),
                           ),
-                          */
-                            ]))),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Center(
-                      child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
+                        ],
+                      ),
+                    );
 
-                      ])),
-                ),
-              ]),
-            )));
+                },
+                itemCount: streamSnapshot.data!.docs.length);
+          }
+          return const Center(child: Text("No schools yet"));
+        },
+        stream: schools.snapshots(),
+      ),
+    );
   }
 }

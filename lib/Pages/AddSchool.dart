@@ -74,7 +74,7 @@ class _AddSchool extends State<AddSchool> {
                             hintText: 'Enter School Name',
                             icon: const Icon(
                               Icons.person,
-                              color: Colors.amber,
+                              color: Colors.redAccent,
                               size: 45.0,
                             ),
                             enabledBorder: OutlineInputBorder(
