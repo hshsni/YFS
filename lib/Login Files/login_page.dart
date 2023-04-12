@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Center( child:Text(
-                        ' Youth Compass',
+                        ' Youth Compass!',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
