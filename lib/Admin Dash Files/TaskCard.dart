@@ -175,7 +175,9 @@ class _TaskCard extends State<TaskCard>
                               /*  convert(_power, _time);*/
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: Size(size.width*0.58, size.height*0.09),
+                              primary: const Color.fromARGB(255, 172, 62, 65),
+                              fixedSize:
+                              Size(size.width * 0.58, size.height * 0.09),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                 BorderRadius.circular(10), // <-- Radius
