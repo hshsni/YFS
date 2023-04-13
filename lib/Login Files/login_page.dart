@@ -258,19 +258,20 @@ class _LoginPageState extends State<LoginPage> {
                                     child: Text(
                                       'Sign In',
                                       style:
-                                      TextStyle(color: Colors.white),
+                                      TextStyle(color: Colors.white,fontSize: 20),
+
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 15.0),
+                            const SizedBox(height: 30.0),
                             const Center(
                               child: Text(
                                 "Don't have an account ?",
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+
                                   fontSize: 20,
                                 ),
                               ),
@@ -283,7 +284,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 25.0),
+                                        horizontal: 0.0),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:

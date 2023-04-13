@@ -306,10 +306,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(height: 15.0),
                         const Center(
                           child: Text(
-                            "Do you have Account ?",
+                            "Do you have an account ?",
                             style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
+
                               fontSize: 20,
                             ),
                           ),
