@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
+import 'package:youth_compass_application/Pages/Feedback.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -57,7 +58,8 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.border_color),
             title: const Text('Feedback'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {Navigator.push(context,
+            MaterialPageRoute(builder: (_) => Feedback1()))},
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
