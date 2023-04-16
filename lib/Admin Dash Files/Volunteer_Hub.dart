@@ -1,28 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/AdminDashboard.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
 
-import 'SchoolCard.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/vl_dashboard.dart';
+import 'package:youth_compass_application/Pages/Feedback.dart';
 
-class AdminHub extends StatefulWidget {
-  const AdminHub({Key? key}) : super(key: key);
+
+class VolunteerHub extends StatefulWidget {
+  const VolunteerHub({Key? key}) : super(key: key);
 
   @override
-  State<AdminHub> createState() => _AdminHubState();
+  State<VolunteerHub> createState() => _VolunteerHubState();
+
 }
 
-class _AdminHubState extends State<AdminHub> {
+class _VolunteerHubState extends State<VolunteerHub> {
+  final CollectionReference schools = FirebaseFirestore.instance
+      .collection('School');
   var screens;
 
   @override
   void initState() {
     screens = [
-      AdminDash(),
-      TaskCard(),
-      SchoolCard(),
-      TaskCard(),
-
+      volunteerDash(),
+      Feedback1(),
     ];
     super.initState();
   }
@@ -30,14 +33,14 @@ class _AdminHubState extends State<AdminHub> {
   int index = 0;
 
   final items = <Widget>[
-    Icon(Icons.home, size: 30),
-    Icon(Icons.bar_chart, size: 30),
-    Icon(Icons.school, size: 30),
-    Icon(Icons.task, size: 30),
+    Icon(Icons.view_agenda_sharp, size: 30),
+    Icon(Icons.feedback_rounded,size: 30,)
+
   ];
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
       body: screens[index],
@@ -52,5 +55,6 @@ class _AdminHubState extends State<AdminHub> {
         animationDuration: Duration(milliseconds: 400),
       ),
     );
+
   }
 }

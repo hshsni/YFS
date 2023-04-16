@@ -1,28 +1,27 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/AdminDashboard.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
 
-import 'SchoolCard.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
+import 'package:youth_compass_application/Pages/ViewTask.dart';
 
-class AdminHub extends StatefulWidget {
-  const AdminHub({Key? key}) : super(key: key);
+
+class TrainerHub extends StatefulWidget {
+  const TrainerHub({Key? key}) : super(key: key);
 
   @override
-  State<AdminHub> createState() => _AdminHubState();
+  State<TrainerHub> createState() => _TrainerHubState();
 }
 
-class _AdminHubState extends State<AdminHub> {
+class _TrainerHubState extends State<TrainerHub> {
   var screens;
 
   @override
   void initState() {
     screens = [
-      AdminDash(),
-      TaskCard(),
-      SchoolCard(),
-      TaskCard(),
+      TrainerDash(),
 
+      ViewTask(),
     ];
     super.initState();
   }
@@ -30,10 +29,9 @@ class _AdminHubState extends State<AdminHub> {
   int index = 0;
 
   final items = <Widget>[
-    Icon(Icons.home, size: 30),
-    Icon(Icons.bar_chart, size: 30),
-    Icon(Icons.school, size: 30),
-    Icon(Icons.task, size: 30),
+    Icon(Icons.view_agenda_outlined, size: 30),
+    Icon(Icons.assignment_ind_outlined,size: 30,)
+
   ];
 
   @override

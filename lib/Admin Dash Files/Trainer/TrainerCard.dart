@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddTrainer.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/View%20Items/ViewTrainer.dart';
 
-import '../Utils/AppDrawer.dart';
+import '../../Utils/AppDrawer.dart';
 
 class TrainerCard extends StatefulWidget {
   const TrainerCard({Key? key}) : super(key: key);
