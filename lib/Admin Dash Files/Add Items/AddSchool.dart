@@ -1,22 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../Utils/AppDrawer.dart';
-import '../Utils/size_config.dart';
+import '../../Utils/size_config.dart';
 
-class AddTrainer extends StatefulWidget {
-  const AddTrainer({Key? key}) : super(key: key);
+class AddSchool extends StatefulWidget {
+  const AddSchool({Key? key}) : super(key: key);
 
   @override
-  State<AddTrainer> createState() => _AddTrainer();
+  State<AddSchool> createState() => _AddSchool();
 }
 
-class _AddTrainer extends State<AddTrainer> {
+class _AddSchool extends State<AddSchool> {
   final _nameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
 
   RegExp emailRegExp = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
@@ -24,13 +21,11 @@ class _AddTrainer extends State<AddTrainer> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   updateTextandClear() {
-    //function to clear all textfields and then show a snackbar of success condition
     setState(() {
       _nameTextController.clear();
       _emailTextController.clear();
-      _passwordTextController.clear();
       final snackBar = SnackBar(
-        content: const Text('Trainer Added!'),
+        content: const Text('School Added!'),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {},
@@ -50,14 +45,10 @@ class _AddTrainer extends State<AddTrainer> {
         toolbarHeight: 60,
         title: const Text(
           '',
-          style: TextStyle(
-            fontSize: 30,
-          ),
         ),
         centerTitle: true,
-        elevation: 0,
-        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -65,13 +56,13 @@ class _AddTrainer extends State<AddTrainer> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 40, vertical: SizeConfig.screenHeight / 7.5),
+                    horizontal: 40, vertical: SizeConfig.screenHeight / 6),
                 child: SingleChildScrollView(
                   child: Form(
                     child: Column(
                       children: [
                         Text(
-                          "Add Trainer",
+                          "Add School",
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
@@ -80,10 +71,10 @@ class _AddTrainer extends State<AddTrainer> {
                           controller: _nameTextController,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            hintText: 'Enter Trainer Name',
+                            hintText: 'Enter School Name',
                             icon: const Icon(
                               Icons.person,
-                              color: Colors.amber,
+                              color: Colors.redAccent,
                               size: 45.0,
                             ),
                             enabledBorder: OutlineInputBorder(
@@ -110,39 +101,9 @@ class _AddTrainer extends State<AddTrainer> {
                           controller: _emailTextController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            hintText: 'Enter Trainer Email',
+                            hintText: 'Enter School Email',
                             icon: const Icon(
                               Icons.email,
-                              color: Colors.amber,
-                              size: 45.0,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.white),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.white),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.white),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        TextFormField(
-                          controller: _passwordTextController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Enter Trainer Password',
-                            icon: const Icon(
-                              Icons.password,
                               color: Colors.amber,
                               size: 45.0,
                             ),
@@ -170,8 +131,7 @@ class _AddTrainer extends State<AddTrainer> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_emailTextController.text.isEmpty ||
-                                  _nameTextController.text.isEmpty ||
-                                  _passwordTextController.text.isEmpty) {
+                                  _nameTextController.text.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Please enter all fields'),
@@ -185,35 +145,15 @@ class _AddTrainer extends State<AddTrainer> {
                                   content: Text('Please enter proper email'),
                                 ));
                               } else {
-                                FirebaseApp app = await Firebase.initializeApp(
-                                    name: 'secondary', options: Firebase.app().options);
-
-                                User? user;
-
-                                UserCredential userCredential =
-                                  await FirebaseAuth.instanceFor(app: app).createUserWithEmailAndPassword(
-                                  email: _emailTextController.text,
-                                  password: _passwordTextController.text,
-                                );
-
-                                // user = userCredential.user;
-                                // await user!.updateDisplayName(
-                                //     _nameTextController.text);
-                                // await user.reload();
-                                // user = auth.currentUser;
-
-                                CollectionReference users = FirebaseFirestore
+                                //adding school to firebase along with email as field
+                                CollectionReference school = FirebaseFirestore
                                     .instance
-                                    .collection('Users');
+                                    .collection('School');
 
-                                users.doc(userCredential.user?.uid).set({
-                                  'name': _nameTextController.text,
-                                  'role': 'trainer',
-                                  'email': _emailTextController.text
-                                }).then((value) {
-                                  updateTextandClear();
-                                }).catchError((error) =>
-                                    print("Failed to add trainer: $error"));
+                                school
+                                    .doc(_nameTextController.text)
+                                    .set({"email": _emailTextController.text});
+                                updateTextandClear();
                               }
                             },
                             style: ElevatedButton.styleFrom(

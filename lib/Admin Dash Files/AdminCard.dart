@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddAdmin.dart';
-import 'package:youth_compass_application/Pages/View_SubAdmin.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddAdmin.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/View%20Items/View_SubAdmin.dart';
 import '../Utils/AppDrawer.dart';
 
 class AdminCard extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddTrainer.dart';
-import 'package:youth_compass_application/Pages/ViewTrainer.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddTrainer.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/View%20Items/ViewTrainer.dart';
 
 import '../Utils/AppDrawer.dart';
 

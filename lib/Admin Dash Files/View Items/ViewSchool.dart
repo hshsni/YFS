@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddAdmin.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddAdmin.dart';
 
-import '../Admin Dash Files/AdminHub.dart';
-import '../Utils/AppDrawer.dart';
+import '../AdminHub.dart';
+import '../../Utils/AppDrawer.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin

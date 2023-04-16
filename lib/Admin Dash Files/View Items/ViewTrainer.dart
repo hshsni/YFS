@@ -1,37 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Pages/AddAdmin.dart';
+import '../../Utils/AppDrawer.dart';
 
-import '../Utils/AppDrawer.dart';
-
-class View_Admin extends StatefulWidget {
-  const View_Admin({Key? key}) : super(key: key);
+class ViewTrainer extends StatefulWidget {
+  const ViewTrainer({Key? key}) : super(key: key);
 
   @override
-  State<View_Admin> createState() => _View_Admin();
+  State<ViewTrainer> createState() => _ViewTrainer();
 }
 
-class _View_Admin extends State<View_Admin> {
-  final CollectionReference admins = FirebaseFirestore.instance
+class _ViewTrainer extends State<ViewTrainer> {
+  final CollectionReference trainers = FirebaseFirestore.instance
       .collection('Users');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const AppDrawer(),
         appBar: AppBar(
+          elevation: 0,
           toolbarHeight: 60,
           title: const Text(
-            'View Admin',
+            'View Trainer',
             style: TextStyle(
               fontSize: 30,
+              color: Colors.black
             ),
           ),
           centerTitle: true,
           foregroundColor: Colors.black,
           backgroundColor: Colors.transparent,
         ),
-        backgroundColor: Color.fromARGB(255,235,215,164),
+        backgroundColor: Color.fromARGB(255, 235, 215, 164),
         body: StreamBuilder(
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
             if (streamSnapshot.hasData) {
@@ -41,7 +40,7 @@ class _View_Admin extends State<View_Admin> {
                     final DocumentSnapshot documentSnapshot =
                     streamSnapshot.data!.docs[index];
 
-                    if(documentSnapshot['role']=='admin') {
+                    if(documentSnapshot['role']=='trainer') {
                       return Card(
                         margin: const EdgeInsets.all(10),
                         child: Column(
@@ -62,9 +61,8 @@ class _View_Admin extends State<View_Admin> {
             }
             return const Center(child: Text("No trainers yet"));
           },
-          stream: admins.snapshots(),
-        )
-      ,
-    );
+          stream: trainers.snapshots(),
+        ),
+        );
   }
 }

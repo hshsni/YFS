@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../Utils/size_config.dart';
+import '../../Utils/size_config.dart';
 
 class AddAdmin extends StatefulWidget {
   const AddAdmin({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class _AddAdmin extends State<AddAdmin> {
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             hintText: 'Enter Name',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.person,
                               color: Colors.amber,
                               size: 45.0,

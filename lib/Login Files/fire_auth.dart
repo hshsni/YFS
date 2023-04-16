@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FireAuth {
   // For registering a new user
   static Future<User?> registerUsingEmailPassword({
-    required String clg,
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -18,6 +18,7 @@ class FireAuth {
 
       user = userCredential.user;
       user = auth.currentUser;
+      user?.updateDisplayName(name);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

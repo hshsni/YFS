@@ -8,8 +8,6 @@ import 'package:youth_compass_application/Login%20Files/login_page.dart';
 import 'size_config.dart';
 import 'fire_auth.dart';
 
-
-
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
@@ -25,16 +23,17 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final _registerFormKey = GlobalKey<FormState>();
 
-  final _clgTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
+  final _phoneTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
   final _focusName = FocusNode();
+  final _focusPhone = FocusNode();
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
 
   bool _isProcessing = false;
-  int _groupValue = 1;
   bool _isAdmin = false;
 
   String? validateEmail({required String? email}) {
@@ -58,6 +57,34 @@ class _SignUpPageState extends State<SignUpPage> {
         _isProcessing = false;
       });
       return 'Enter a correct email';
+    }
+    setState(() {
+      _isProcessing = false;
+    });
+    return null;
+  }
+
+  String? validatePhone({required String? phone}) {
+    if (phone == null) {
+      setState(() {
+        _isProcessing = false;
+      });
+      return null;
+    }
+
+    RegExp phoneRegExp = RegExp(
+        r"^[0-9]{10}$");
+
+    if (phone.isEmpty) {
+      setState(() {
+        _isProcessing = false;
+      });
+      return 'Phone no. can\'t be empty';
+    } else if (!phoneRegExp.hasMatch(phone)) {
+      setState(() {
+        _isProcessing = false;
+      });
+      return 'Enter a correct phone number';
     }
     setState(() {
       _isProcessing = false;
@@ -91,24 +118,21 @@ class _SignUpPageState extends State<SignUpPage> {
     return null;
   }
 
-  String? validateCollege({required String? clg}) {
-    if (clg == null) {
+  String? validateName({required String? name}) {
+    if (name == null) {
+      setState(() {
+        _isProcessing = false;
+      });
       return null;
     }
-
-    if (clg.isEmpty) {
-      return 'Please select a school';
-    } else if (clg.length < 6) {
-      return 'Enter a password with length at least 6';
+    if (name.isEmpty) {
+      setState(() {
+        _isProcessing = false;
+      });
+      return 'Please enter name';
     }
-
     return null;
   }
-
-  String dropdownvalue = 'Select a School';
-
-  // List of items in our dropdown menu
-
 
   @override
   Widget build(BuildContext context) {
@@ -120,37 +144,35 @@ class _SignUpPageState extends State<SignUpPage> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 235, 215, 164),
+        backgroundColor: const Color.fromARGB(255, 235, 215, 164),
         body: SafeArea(
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: SizeConfig.blockSizeVertical * 10,
+                height: SizeConfig.blockSizeVertical * 9,
               ),
-              const Center(
+               Center(
                 child: Text(
-                  "Welcome To",
+                  "Welcome to",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: SizeConfig.blockSizeVertical*4.0,
                   ),
                 ),
-
               ),
               const SizedBox(height: 20),
-              const Center(
+               Center(
                 child: Text(
                   "Youth Compass!",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: SizeConfig.blockSizeVertical*4.0,
                   ),
                 ),
-
               ),
-              const SizedBox(height: 20), //email text box
+              SizedBox(height: SizeConfig.blockSizeVertical*5.0), //email text box
               Form(
                 key: _registerFormKey,
                 child: Expanded(
@@ -158,11 +180,80 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Column(
                       children: <Widget>[
                         const SizedBox(
-                          height: 50,
+                          height: 20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*5.0),
                           child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: _nameTextController,
+                            focusNode: _focusName,
+                            validator: (value) => validateName(
+                              name: value,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Name',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.red),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*5.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.phone,
+                            controller: _phoneTextController,
+                            focusNode: _focusPhone,
+                            validator: (value) => validatePhone(
+                              phone: value,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Phone No.',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.red),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*5.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
                             controller: _emailTextController,
                             focusNode: _focusEmail,
                             validator: (value) => validateEmail(
@@ -190,9 +281,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 50.0),
+                        const SizedBox(height: 20.0),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*5.0),
                           child: TextFormField(
                             controller: _passwordTextController,
                             focusNode: _focusPassword,
@@ -225,11 +316,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(
                           height: 10.0,
                         ),
-
-
-                        const SizedBox(height: 30.0),
-
-
                         const SizedBox(height: 30.0),
                         if (_isProcessing)
                           const CircularProgressIndicator()
@@ -238,16 +324,22 @@ class _SignUpPageState extends State<SignUpPage> {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: SizeConfig.blockSizeHorizontal*20.0),
                                   child: ElevatedButton(
                                     style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateColor.resolveWith(
-                                            (states) => const Color.fromARGB(255, 172, 62, 65),
-
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12),
+                                          )
                                       ),
-                                      fixedSize: MaterialStateProperty.all(const Size(180, 50)),
+                                      backgroundColor:
+                                          MaterialStateColor.resolveWith(
+                                        (states) => const Color.fromARGB(
+                                            255, 172, 62, 65),
+                                      ),
+                                      fixedSize: MaterialStateProperty.all(
+                                          const Size(180, 50)),
                                     ),
                                     onPressed: () async {
                                       setState(() {
@@ -259,7 +351,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         User? user = await FireAuth
                                             .registerUsingEmailPassword(
                                           email: _emailTextController.text,
-                                          clg: dropdownvalue,
+                                          name: _nameTextController.text,
                                           password:
                                               _passwordTextController.text,
                                         );
@@ -268,20 +360,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                           _isProcessing = false;
                                         });
                                         final docid = FirebaseFirestore.instance
-                                            .collection('userdata')
+                                            .collection('Users')
                                             .doc(user?.uid);
 
                                         await docid.set({
+                                          'name': user?.displayName,
                                           'email': user?.email,
-                                          'college': dropdownvalue,
-                                          'type': _isAdmin ? 'Admin' : 'Student'
+                                          'role': 'volunteer'
                                         });
                                         if (user != null) {
                                           Navigator.of(context)
                                               .pushAndRemoveUntil(
                                             MaterialPageRoute(
-                                              builder: (context) =>AdminHub()
-                                            ),
+                                                builder: (context) =>
+                                                    const AdminHub()),
                                             ModalRoute.withName('/'),
                                           );
                                         }
@@ -306,54 +398,56 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(height: 15.0),
                         const Center(
                           child: Text(
-                            "Do you have an account ?",
+                            "Already have an account?",
                             style: TextStyle(
                               color: Colors.black,
-
                               fontSize: 20,
                             ),
                           ),
-
                         ),
                         const SizedBox(height: 30.0),
-
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25.0),
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateColor.resolveWith(
-                                            (states) => const Color.fromARGB(255, 172, 62, 65),
-
-                                      ),
-                                      fixedSize: MaterialStateProperty.all(const Size(180, 50)),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.blockSizeHorizontal*20.0),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        )
                                     ),
-                                    onPressed: ()  {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (_) => LoginPage()));
-                                                   },
-
-
-                                    child: Container(
-                                      height: 40,
-                                      child: const Center(
-                                        child: Text(
-                                          'Sign In',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
+                                    backgroundColor:
+                                        MaterialStateColor.resolveWith(
+                                      (states) => const Color.fromARGB(
+                                          255, 172, 62, 65),
+                                    ),
+                                    fixedSize: MaterialStateProperty.all(
+                                        const Size(180, 50)),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => const LoginPage()));
+                                  },
+                                  child: const SizedBox(
+                                    height: 40,
+                                    child: Center(
+                                      child: Text(
+                                        'Sign In',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ],
-                          )
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -371,14 +465,3 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 }
 
-class ChildWidget extends StatefulWidget {
-  final Function() notifyParent;
-
-  ChildWidget({Key? key, required this.notifyParent}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-}
