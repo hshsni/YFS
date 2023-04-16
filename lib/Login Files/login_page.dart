@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/AdminDashboard.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/Trainer_Hub.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer_Hub.dart';
 import 'package:youth_compass_application/Login%20Files/sign_up_page.dart';
 
 import '../Admin Dash Files/AdminHub.dart';
-import '../Utils/size_config.dart';
 import 'fire_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     if (user != null) {
       var collection = FirebaseFirestore.instance.collection('userdata');
       var querySnapshot =
-          await collection.where('id', isEqualTo: user.uid).get();
+      await collection.where('id', isEqualTo: user.uid).get();
       for (var snapshot in querySnapshot.docs) {
         Map<String, dynamic> data = snapshot.data();
         college = data['college'];
@@ -43,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AdminHub(),
+          builder: (context) =>TrainerHub(),
         ),
       );
     }
@@ -84,7 +86,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {
         _focusEmail.unfocus();
@@ -97,22 +98,35 @@ class _LoginPageState extends State<LoginPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5.0),
+                padding: const EdgeInsets.only(left: 24.0, right: 24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Center(
-                      child: Text(
-                        "Welcome back!",
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Center( child:Text(
+                        'Welcome To ',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: SizeConfig.blockSizeVertical * 4.0,
+                          fontSize: 30,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    SizedBox(height: SizeConfig.blockSizeVertical * 5.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Center( child:Text(
+                        ' Youth Compass!',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                      ),
+                    ),
+                    SizedBox(height: 35.0),
                     Form(
                       key: _formKey,
                       child: SingleChildScrollView(
@@ -124,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                               validator: (value) => validateEmail(
                                 email: value,
                               ),
+
                               decoration: InputDecoration(
                                 hintText: 'Enter Email',
                                 enabledBorder: OutlineInputBorder(
@@ -131,10 +146,13 @@ class _LoginPageState extends State<LoginPage> {
                                       width: 3,
                                       color: Color.fromRGBO(52, 73, 85, 1)),
                                   borderRadius: BorderRadius.circular(15),
+
                                 ),
+
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 2, color: Colors.black),
+                                      width: 2,
+                                      color: Colors.black),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 errorBorder: OutlineInputBorder(
@@ -143,8 +161,9 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
+
                             ),
-                            SizedBox(height:SizeConfig.blockSizeVertical * 2.0),
+                            SizedBox(height: 50.0),
                             TextFormField(
                               controller: _passwordTextController,
                               focusNode: _focusPassword,
@@ -162,7 +181,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 2, color: Colors.black),
+                                      width: 2,
+                                      color: Colors.black),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 errorBorder: OutlineInputBorder(
@@ -172,151 +192,124 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                                height: SizeConfig.blockSizeVertical * 7.0),
+                            SizedBox(height: 55.0),
                             _isProcessing
                                 ? CircularProgressIndicator()
                                 : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal:
-                                                SizeConfig.blockSizeHorizontal *
-                                                    20.0,
-                                          ),
-                                          child: ElevatedButton(
-                                            style: ButtonStyle(
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              )),
-                                              backgroundColor:
-                                                  MaterialStateColor
-                                                      .resolveWith(
-                                                (states) =>
-                                                    const Color.fromARGB(
-                                                        255, 172, 62, 65),
-                                              ),
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                      const Size(180, 50)),
-                                            ),
-                                            onPressed: () async {
-                                              _focusEmail.unfocus();
-                                              _focusPassword.unfocus();
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateColor.resolveWith(
+                                            (states) => const Color.fromARGB(255, 172, 62, 65),
 
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                setState(() {
-                                                  _isProcessing = true;
-                                                });
-
-                                                User? user = await FireAuth
-                                                    .signInUsingEmailPassword(
-                                                  email:
-                                                      _emailTextController.text,
-                                                  password:
-                                                      _passwordTextController
-                                                          .text,
-                                                );
-
-                                                setState(() {
-                                                  _isProcessing = false;
-                                                });
-
-                                                if (user != null) {
-                                                  try {} on FirebaseAuthException catch (e) {
-                                                    if (e.code ==
-                                                        'weak-password') {
-                                                    } else if (e.code ==
-                                                        'email-already-in-use') {
-                                                    } else if (e.code ==
-                                                        'user-not-found') {
-                                                    } else if (e.code ==
-                                                        'wrong-password') {}
-
-                                                    print(e
-                                                        .code); //Add this line to see other firebase exceptions.
-                                                  } catch (e) {
-                                                    print(e);
-                                                  }
-                                                  Navigator.of(context)
-                                                      .pushAndRemoveUntil(
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      AdminHub()),
-                                                          (route) => false);
-                                                }
-                                              }
-                                            },
-                                            child: Text(
-                                              'Sign In',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: SizeConfig.blockSizeVertical * 3.0),
-                                            ),
-                                          ),
-                                        ),
                                       ),
-                                    ],
+                                      fixedSize: MaterialStateProperty.all(const Size(180, 50)),
+                                    ),
+                                    onPressed: () async {
+                                      _focusEmail.unfocus();
+                                      _focusPassword.unfocus();
+
+                                      if (_formKey.currentState!
+                                          .validate()) {
+                                        setState(() {
+                                          _isProcessing = true;
+                                        });
+
+                                        User? user = await FireAuth
+                                            .signInUsingEmailPassword(
+                                          email:
+                                          _emailTextController.text,
+                                          password:
+                                          _passwordTextController
+                                              .text,
+                                        );
+
+                                        setState(() {
+                                          _isProcessing = false;
+                                        });
+
+                                        if (user != null) {
+                                          try {} on FirebaseAuthException catch (e) {
+                                            if (e.code ==
+                                                'weak-password') {
+                                            } else if (e.code ==
+                                                'email-already-in-use') {
+                                            } else if (e.code ==
+                                                'user-not-found') {
+                                            } else if (e.code ==
+                                                'wrong-password') {}
+
+                                            print(e
+                                                .code); //Add this line to see other firebase exceptions.
+                                          } catch (e) {
+                                            print(e);
+                                          }
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TrainerHub()),
+                                                  (route) => false);
+                                        }
+                                      }
+                                    },
+                                    child: Text(
+                                      'Sign In',
+                                      style:
+                                      TextStyle(color: Colors.white,fontSize: 20),
+
+                                    ),
                                   ),
-                            SizedBox(
-                                height: SizeConfig.blockSizeVertical * 3.0),
-                             Center(
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30.0),
+                            const Center(
                               child: Text(
-                                "Don't have an account?",
+                                "Don't have an account ?",
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: SizeConfig.blockSizeVertical * 3.0,
+
+                                  fontSize: 20,
                                 ),
                               ),
+
                             ),
-                            SizedBox(height: SizeConfig.blockSizeVertical * 3.0),
+                            const SizedBox(height: 30.0),
+
                             Row(
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            SizeConfig.blockSizeHorizontal *
-                                                20.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0.0),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        )),
                                         backgroundColor:
-                                            MaterialStateColor.resolveWith(
-                                          (states) => const Color.fromARGB(
-                                              255, 172, 62, 65),
+                                        MaterialStateColor.resolveWith(
+                                              (states) => const Color.fromARGB(255, 172, 62, 65),
+
                                         ),
-                                        fixedSize: MaterialStateProperty.all(
-                                            const Size(180, 50)),
+                                        fixedSize: MaterialStateProperty.all(const Size(180, 50)),
                                       ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    const SignUpPage()));
+                                      onPressed: ()  {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (_) => SignUpPage()));
                                       },
-                                      child: SizedBox(
+
+
+                                      child: Container(
                                         height: 40,
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             'Sign Up',
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: SizeConfig.blockSizeVertical * 3.0),
+                                                fontSize: 20),
                                           ),
                                         ),
                                       ),
@@ -334,7 +327,7 @@ class _LoginPageState extends State<LoginPage> {
               );
             }
 
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           },
