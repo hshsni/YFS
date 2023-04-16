@@ -39,6 +39,19 @@ class _TrainerDash extends State<TrainerDash> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
+  updateTextandClear1() {
+    setState(() {
+
+      final snackBar = SnackBar(
+        content: const Text('Assign Task Successfully!'),
+        action: SnackBarAction(
+          label: 'Dismiss',
+          onPressed: () {},
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
 
   final CollectionReference schools = FirebaseFirestore.instance
       .collection('School');
@@ -99,13 +112,158 @@ class _TrainerDash extends State<TrainerDash> {
                           title: Text(documentSnapshot['title']),
                           onTap: () =>
                           {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        Card(
-                                          // TODO: Replace with your card widget
-                                        )))
+                          showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+
+                          return AlertDialog(
+                          title: const Text('Assign Task',textAlign: TextAlign.center,),
+                          shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+
+                          ),
+                          backgroundColor: Color.fromARGB(255, 235, 215, 164),
+                          content: SingleChildScrollView(
+                          child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Form(
+                          key: _formKey,
+                          child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+                              builder: (context, snapshot) {
+                                List<DropdownMenuItem<String>> clientItems = [];
+                                if (!snapshot.hasData) {
+                                  return CircularProgressIndicator();
+                                } else {
+                                  final clients = snapshot.data!.docs.reversed.toList();
+                                  clientItems.add(DropdownMenuItem<String>(
+                                    value: "0",
+                                    child: Text("Select Volunteer"),
+                                  ));
+                                  for (var client in clients) {
+                                    clientItems.add(DropdownMenuItem<String>(
+                                      value: client.id,
+                                      child: Text(client['name']),
+
+                                    ));
+                                  }
+                                }
+                                return DropdownButton<String>(
+                                  items: clientItems,
+                                  onChanged: (clientValue) {
+                                    setState(() {
+                                      selectedClient = clientValue!;
+                                    });
+                                    print(clientValue);
+                                  },
+                                  value: selectedClient,
+                                  isExpanded: false,
+
+
+                                );
+                              },
+                            ),
+                          const SizedBox(height: 20),
+
+
+
+                          StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance.collection('School').snapshots(),
+                          builder: (context, snapshot) {
+                          List<DropdownMenuItem<String>> clientItems = [];
+                          if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                          } else {
+                          final clients = snapshot.data!.docs.reversed.toList();
+                          clientItems.add(DropdownMenuItem<String>(
+                          value: "0",
+                          child: Text("Select School"),
+                          ));
+                          for (var client in clients) {
+                          clientItems.add(DropdownMenuItem<String>(
+                          value: client.id,
+                          child: Text(client.id),
+
+                          ));
+                          }
+                          }
+                          return DropdownButton<String>(
+                          items: clientItems,
+                          onChanged: (clientValue) {
+                          setState(() {
+                          selectedClient = clientValue!;
+                          });
+                          print(clientValue);
+                          },
+                          value: selectedClient,
+                          isExpanded: false,
+
+
+                          );
+                          },
+                          ),
+
+
+
+                          const SizedBox(height: 20),
+
+                          Center(
+                          child: ElevatedButton(
+                          onPressed: () async{
+                          if (_titleTextController.text.isEmpty ||
+                          _descriptionTextController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                          content: Text('Please enter all fields'),
+                          ),
+                          );
+                          }
+                          else {
+                          //adding school to firebase along with email as field
+                          CollectionReference Task = FirebaseFirestore
+                              .instance
+                              .collection('Tasks');
+
+                          Task
+                              .doc()
+                              .set({"title": _titleTextController.text,"description":_descriptionTextController.text}).then(updateTextandClear1());
+                          if (!mounted) return;
+                          return Navigator.of(context).pop();
+
+
+                          }
+                          },
+                          style: ElevatedButton.styleFrom(
+                          primary: const Color.fromARGB(255, 172, 62, 65),
+                          fixedSize:
+                          Size(size.width * 0.58, size.height * 0.09),
+                          shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(10), // <-- Radius
+                          ),
+                          ),
+                          child: const Text(
+                          'Assign Task',
+                          style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                          ),
+                          ),
+                          ),
+                          ),
+                          ],
+                          ),
+                          ),
+                          )
+                          ,
+                          )
+                          );
+                          }
+                          ),
                           },
                         ),
                       ],
