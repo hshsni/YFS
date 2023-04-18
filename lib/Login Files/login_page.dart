@@ -157,7 +157,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 3, color: Colors.red),
+                                      width: 3, color: const Color.fromARGB(
+                                      255, 172, 62, 65),),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
@@ -187,7 +188,8 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 3, color: Colors.red),
+                                      width: 3, color: const Color.fromARGB(
+                                      255, 172, 62, 65),),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                               ),
@@ -208,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                       ),
                                       fixedSize: MaterialStateProperty.all(const Size(180, 50)),
-                                    ),
+                                                                      ),
                                     onPressed: () async {
                                       _focusEmail.unfocus();
                                       _focusPassword.unfocus();
