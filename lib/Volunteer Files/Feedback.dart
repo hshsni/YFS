@@ -9,7 +9,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 
 import '../../Utils/button.dart';
+import '../Utils/size_config.dart';
 import 'api/firebase_api.dart';
+
 
 
 class Feedback1 extends StatefulWidget {
@@ -31,6 +33,7 @@ class _Feedback1State extends State<Feedback1> {
   File? file;
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final fileName = file != null ? basename(file!.path) : 'No File Selected';
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +53,7 @@ class _Feedback1State extends State<Feedback1> {
       backgroundColor:  Color.fromARGB(255,235,215,164),
       body:
       Container(
-        padding: EdgeInsets.all(32),
+        padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*8,vertical: SizeConfig.blockSizeVertical*8),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -60,18 +63,18 @@ class _Feedback1State extends State<Feedback1> {
                 icon: Icons.attach_file,
                 onClicked: selectFile,
               ),
-              SizedBox(height: 8),
+              SizedBox(height: SizeConfig.blockSizeVertical*5),
               Text(
                 fileName,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 48),
+              SizedBox(height: SizeConfig.blockSizeVertical*12),
               ButtonWidget(
                 text: 'Upload File',
                 icon: Icons.cloud_upload_outlined,
                 onClicked: uploadFile,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: SizeConfig.blockSizeVertical*5),
               task != null ? buildUploadStatus(task!) : Container(),
             ],
           ),

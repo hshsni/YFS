@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:youth_compass_application/Login%20Files/SignUpEmail.dart';
 import 'package:youth_compass_application/Login%20Files/SignUpPhone.dart';
 import 'Login Files/login_page.dart';
 import 'Login Files/otpPage.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Lato',
         primarySwatch: Colors.blue,
       ),
-      home: SignUpPhone(),
+      home: LoginPage(),
     );
   }
 }

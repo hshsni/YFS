@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/SchoolCard.dart';
 
 import '../../Utils/AppDrawer.dart';
+import '../Utils/size_config.dart';
 
 class TrainerDash extends StatefulWidget {
   const TrainerDash({Key? key}) : super(key: key);
@@ -78,6 +79,7 @@ class _TrainerDash extends State<TrainerDash> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 235, 215, 164),
       drawer: const AppDrawer(),
@@ -102,7 +104,7 @@ class _TrainerDash extends State<TrainerDash> {
                       streamSnapshot.data!.docs[index];
 
                   return Card(
-                    margin: const EdgeInsets.all(10),
+                    margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*2.5,vertical: SizeConfig.blockSizeHorizontal*2.5),
                     child: Column(
                       children: [
                         ListTile(
@@ -127,14 +129,14 @@ class _TrainerDash extends State<TrainerDash> {
                                           Color.fromARGB(255, 235, 215, 164),
                                       content: SingleChildScrollView(
                                         child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                                            padding: EdgeInsets.symmetric(horizontal:SizeConfig.blockSizeHorizontal*2 , vertical: SizeConfig.blockSizeVertical*4),
                                           child: Form(
                                             key: _formKey,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Container(
-                                                  padding: EdgeInsets.all(8),
+                                                  padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*2,vertical: SizeConfig.blockSizeHorizontal*2),
                                                   decoration: BoxDecoration(
                                                     color: Colors.white/* const Color.fromARGB(
                                                         255, 172, 62, 65)*/, //<-- SEE HERE
@@ -190,7 +192,7 @@ class _TrainerDash extends State<TrainerDash> {
                                                           print(clientValue);
                                                         },
                                                         icon: Padding( //Icon at tail, arrow bottom is default icon
-                                                            padding: EdgeInsets.only(left:20),
+                                                            padding: EdgeInsets.only(left: SizeConfig.blockSizeHorizontal*5),
                                                             child:Icon(Icons.arrow_circle_down_sharp)
                                                         ),
                                                         iconEnabledColor: Colors.black, //Icon color
@@ -212,10 +214,10 @@ class _TrainerDash extends State<TrainerDash> {
                                                     },
                                                   ),
                                                 ),
-                                                const SizedBox(height: 20),
+                                                 SizedBox(height: SizeConfig.blockSizeVertical*5),
 
                                                 Container(
-                                                  padding: EdgeInsets.all(8),
+                                                  padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*2,vertical: SizeConfig.blockSizeHorizontal*2),
                                                   decoration: BoxDecoration(
                                                     color:Colors.white/*const Color.fromARGB(
                                                         255, 172, 62, 65)*/,
@@ -271,7 +273,7 @@ class _TrainerDash extends State<TrainerDash> {
                                                           print(clientValue);
                                                         },
                                                         icon: Padding( //Icon at tail, arrow bottom is default icon
-                                                            padding: EdgeInsets.only(left:20),
+                                                            padding: EdgeInsets.only(left: SizeConfig.blockSizeHorizontal*5),
                                                             child:Icon(Icons.arrow_circle_down_sharp)
                                                         ),
                                                         iconEnabledColor: Colors.black, //Icon color
@@ -291,7 +293,7 @@ class _TrainerDash extends State<TrainerDash> {
                                                     },
                                                   ),
                                                 ),
-                                                const SizedBox(height: 20),
+                                                SizedBox(height: SizeConfig.blockSizeVertical*5),
                                                 Center(
                                                   child: ElevatedButton(
                                                     onPressed: () async {
@@ -376,7 +378,7 @@ class _TrainerDash extends State<TrainerDash> {
         stream: Task.snapshots(),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.all(65.0),
+        padding:  EdgeInsets.symmetric(vertical:SizeConfig.blockSizeVertical*16,horizontal: SizeConfig.blockSizeHorizontal*16),
         child: FloatingActionButton(
           onPressed: () {
             showDialog(
@@ -394,7 +396,7 @@ class _TrainerDash extends State<TrainerDash> {
                       backgroundColor: Color.fromARGB(255, 235, 215, 164),
                       content: SingleChildScrollView(
                         child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                            padding: EdgeInsets.symmetric(vertical:SizeConfig.blockSizeVertical*4,horizontal: SizeConfig.blockSizeHorizontal*2),
                           child: Form(
                             key: _formKey,
                             child: Column(
@@ -442,7 +444,7 @@ class _TrainerDash extends State<TrainerDash> {
 
                                 ),
                                 
-                                const SizedBox(height: 20),
+                                 SizedBox(height:SizeConfig.blockSizeVertical*5 ),
 
                                 /*StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance.collection("School").snapshots(),
@@ -498,7 +500,7 @@ class _TrainerDash extends State<TrainerDash> {
 
                                   ),*/
 
-                                Container(padding: EdgeInsets.all(8),
+                                Container(padding: EdgeInsets.symmetric(vertical:SizeConfig.blockSizeVertical*2,horizontal: SizeConfig.blockSizeHorizontal*2),
                                   decoration: BoxDecoration(
                                     color: Colors.white/*const Color.fromARGB(
                                         255, 172, 62, 65)*/,
@@ -537,7 +539,7 @@ class _TrainerDash extends State<TrainerDash> {
 
                                         },
                                         icon: Padding( //Icon at tail, arrow bottom is default icon
-                                            padding: EdgeInsets.only(left:20),
+                                            padding: EdgeInsets.only(left:SizeConfig.blockSizeHorizontal*4),
                                             child:Icon(Icons.arrow_circle_down_sharp)
                                         ),
                                         iconEnabledColor: Colors.black, //Icon color
@@ -555,7 +557,7 @@ class _TrainerDash extends State<TrainerDash> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(height: 20),
+                                 SizedBox(height: SizeConfig.blockSizeVertical*5),
                                 TextField(
                                   controller: _descriptionTextController,
                                   keyboardType: TextInputType.multiline,
@@ -596,7 +598,7 @@ class _TrainerDash extends State<TrainerDash> {
                                       _taskName = value!;
                                     },*/
                                 ),
-                                const SizedBox(height: 20),
+                                 SizedBox(height:SizeConfig.blockSizeVertical*5 ),
                                 Center(
                                   child: ElevatedButton(
                                     onPressed: () async {
