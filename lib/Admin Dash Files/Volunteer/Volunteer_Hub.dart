@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
 
 import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/vl_dashboard.dart';
-import 'package:youth_compass_application/Pages/Feedback.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/vl_dashboard.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/Feedback.dart';
 
 
 class VolunteerHub extends StatefulWidget {

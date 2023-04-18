@@ -125,151 +125,173 @@ class _TrainerDash extends State<TrainerDash> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       backgroundColor:
+
                                           Color.fromARGB(255, 235, 215, 164),
                                       content: SingleChildScrollView(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(20.0),
+                                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                                           child: Form(
                                             key: _formKey,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                StreamBuilder<QuerySnapshot>(
-                                                  stream: FirebaseFirestore
-                                                      .instance
-                                                      .collection('Users')
-                                                      .snapshots(),
-                                                  builder: (context, snapshot) {
-                                                    List<
-                                                            DropdownMenuItem<
-                                                                String>>
-                                                        clientItems = [];
-                                                    if (!snapshot.hasData) {
-                                                      return CircularProgressIndicator();
-                                                    } else {
-                                                      final clients = snapshot
-                                                          .data!.docs.reversed
-                                                          .toList();
+                                                Container(
+                                                  padding: EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white/* const Color.fromARGB(
+                                                        255, 172, 62, 65)*/, //<-- SEE HERE
+                                                  ),
+                                                  child: StreamBuilder<QuerySnapshot>(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection('Users')
+                                                        .snapshots(),
+                                                    builder: (context, snapshot) {
+                                                      List<
+                                                              DropdownMenuItem<
+                                                                  String>>
+                                                          clientItems = [];
+                                                      if (!snapshot.hasData) {
+                                                        return CircularProgressIndicator();
+                                                      } else {
+                                                        final clients = snapshot
+                                                            .data!.docs.reversed
+                                                            .toList();
 
-                                                      clientItems.add(
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                        value: "0",
-                                                        child: Text(
-                                                            "Select Volunteer"),
-
-                                                      ));
-                                                      for (var client
-                                                          in clients) {
                                                         clientItems.add(
                                                             DropdownMenuItem<
                                                                 String>(
-                                                          value: client.id,
+                                                          value: "0",
                                                           child: Text(
-                                                              client['name']),
+                                                              "Select Volunteer"),
+
                                                         ));
+
+                                                        for (var client
+                                                            in clients) {
+                                                          clientItems.add(
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                            value: client.id,
+                                                            child: Text(
+                                                                client['name']),
+
+                                                          ));
+
+                                                        }
                                                       }
-                                                    }
-                                                    return DropdownButton<
-                                                        String>(
-                                                      items: clientItems,
-                                                      onChanged: (clientValue) {
-                                                        setState(() {
-                                                          selectedClient =
-                                                              clientValue!;
-                                                        });
-                                                        print(clientValue);
-                                                      },
-                                                      icon: Padding( //Icon at tail, arrow bottom is default icon
-                                                          padding: EdgeInsets.only(left:20),
-                                                          child:Icon(Icons.arrow_circle_down_sharp)
-                                                      ),
-                                                      iconEnabledColor: Colors.black, //Icon color
-                                                      style: TextStyle(  //te
-                                                          color: Colors.black, //Font color
-                                                          fontSize: 20 //font size on dropdown button
-                                                      ),
+                                                      return DropdownButton<
+                                                          String>(
+                                                        items: clientItems,
 
-                                                      dropdownColor: Colors.white, //dropdown background color
-                                                      underline: Container(), //remove underline
-                                                      isExpanded: true, //make true to make width 100%
+                                                        onChanged: (clientValue) {
+                                                          setState(() {
+                                                            selectedClient =
+                                                                clientValue!;
+                                                          });
+                                                          print(clientValue);
+                                                        },
+                                                        icon: Padding( //Icon at tail, arrow bottom is default icon
+                                                            padding: EdgeInsets.only(left:20),
+                                                            child:Icon(Icons.arrow_circle_down_sharp)
+                                                        ),
+                                                        iconEnabledColor: Colors.black, //Icon color
+                                                        style: TextStyle(  //te
+                                                            color: Colors.black, //Font color
+                                                            fontSize: 20 //font size on dropdown button
+                                                        ),
 
-                                                      value: selectedClient,
 
-                                                    );
-                                                  },
+                                                        dropdownColor: Colors.white, //dropdown background color
+                                                        underline: Container(), //remove underline
+                                                        isExpanded: true, //make true to make width 100%
+
+
+                                                        value: selectedClient,
+
+                                                      );
+
+                                                    },
+                                                  ),
                                                 ),
                                                 const SizedBox(height: 20),
 
-                                                StreamBuilder<QuerySnapshot>(
-                                                  stream: FirebaseFirestore
-                                                      .instance
-                                                      .collection('School')
-                                                      .snapshots(),
-                                                  builder: (context, snapshot) {
-                                                    List<
-                                                            DropdownMenuItem<
-                                                                String>>
-                                                        clientItems = [];
-                                                    if (!snapshot.hasData) {
-                                                      return CircularProgressIndicator();
-                                                    } else {
-                                                      final clients = snapshot
-                                                          .data!.docs.reversed
-                                                          .toList();
-                                                      clientItems.add(
-                                                          DropdownMenuItem<
-                                                              String>(
-                                                        value: "0",
-                                                        child: Text(
-                                                            "Select School"),
-                                                      ),
-
-
-
-                                                      );
-                                                      for (var client
-                                                          in clients) {
+                                                Container(
+                                                  padding: EdgeInsets.all(8),
+                                                  decoration: BoxDecoration(
+                                                    color:Colors.white/*const Color.fromARGB(
+                                                        255, 172, 62, 65)*/,
+                                                  ),
+                                                  child: StreamBuilder<QuerySnapshot>(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection('School')
+                                                        .snapshots(),
+                                                    builder: (context, snapshot) {
+                                                      List<
+                                                              DropdownMenuItem<
+                                                                  String>>
+                                                          clientItems = [];
+                                                      if (!snapshot.hasData) {
+                                                        return CircularProgressIndicator();
+                                                      } else {
+                                                        final clients = snapshot
+                                                            .data!.docs.reversed
+                                                            .toList();
                                                         clientItems.add(
                                                             DropdownMenuItem<
                                                                 String>(
-                                                          value: client.id,
-                                                          child:
-                                                              Text(client.id),
-
+                                                          value: "0",
+                                                          child: Text(
+                                                              "Select School"),
                                                         ),
+
+
+
                                                         );
+                                                        for (var client
+                                                            in clients) {
+                                                          clientItems.add(
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                            value: client.id,
+                                                            child:
+                                                                Text(client.id),
+
+                                                          ),
+                                                          );
+                                                        }
                                                       }
-                                                    }
-                                                    return DropdownButton<
-                                                        String>(
-                                                      items: clientItems,
-                                                      onChanged: (clientValue) {
-                                                        setState(() {
-                                                          selectedClient =
-                                                              clientValue!;
-                                                        });
-                                                        print(clientValue);
-                                                      },
-                                                      icon: Padding( //Icon at tail, arrow bottom is default icon
-                                                          padding: EdgeInsets.only(left:20),
-                                                          child:Icon(Icons.arrow_circle_down_sharp)
-                                                      ),
-                                                      iconEnabledColor: Colors.black, //Icon color
-                                                      style: TextStyle(  //te
-                                                          color: Colors.black, //Font color
-                                                          fontSize: 20 //font size on dropdown button
-                                                      ),
+                                                      return DropdownButton<
+                                                          String>(
+                                                        items: clientItems,
+                                                        onChanged: (clientValue) {
+                                                          setState(() {
+                                                            selectedClient =
+                                                                clientValue!;
+                                                          });
+                                                          print(clientValue);
+                                                        },
+                                                        icon: Padding( //Icon at tail, arrow bottom is default icon
+                                                            padding: EdgeInsets.only(left:20),
+                                                            child:Icon(Icons.arrow_circle_down_sharp)
+                                                        ),
+                                                        iconEnabledColor: Colors.black, //Icon color
+                                                        style: TextStyle(  //te
+                                                            color: Colors.black, //Font color
+                                                            fontSize: 20 //font size on dropdown button
+                                                        ),
 
-                                                      dropdownColor: Colors.white, //dropdown background color
-                                                      underline: Container(), //remove underline
-                                                      isExpanded: true, //make true to make width 100%
+                                                        dropdownColor: Colors.white, //dropdown background color
+                                                        underline: Container(), //remove underline
+                                                        isExpanded: true, //make true to make width 100%
 
-                                                      value: selectedClient,
+                                                        value: selectedClient,
 
-                                                    );
+                                                      );
 
-                                                  },
+                                                    },
+                                                  ),
                                                 ),
                                                 const SizedBox(height: 20),
                                                 Center(
@@ -317,8 +339,8 @@ class _TrainerDash extends State<TrainerDash> {
                                                           const Color.fromARGB(
                                                               255, 172, 62, 65),
                                                       fixedSize: Size(
-                                                          size.width * 0.58,
-                                                          size.height * 0.09),
+                                                          size.width * 0.40,
+                                                          size.height * 0.07),
                                                       shape:
                                                           RoundedRectangleBorder(
                                                         borderRadius:
@@ -330,7 +352,7 @@ class _TrainerDash extends State<TrainerDash> {
                                                       'Assign Task',
                                                       style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 30,
+                                                        fontSize: 25,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
@@ -366,7 +388,7 @@ class _TrainerDash extends State<TrainerDash> {
                       title: const Text(
                         'Create Task',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 30, color: Colors.black,fontWeight: FontWeight.w300),
+                        style: TextStyle(fontSize: 35, color: Colors.black,fontWeight: FontWeight.w400),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -374,15 +396,16 @@ class _TrainerDash extends State<TrainerDash> {
                       backgroundColor: Color.fromARGB(255, 235, 215, 164),
                       content: SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.all(20.0),
+                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                           child: Form(
                             key: _formKey,
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisSize: MainAxisSize.max,
                               children: [
                                 TextFormField(
                                   controller: _titleTextController,
                                   decoration: InputDecoration(
+
                                     hintText: 'Enter Task Name',
                                     /*  icon: const Icon(
                                         Icons.person,
@@ -391,20 +414,24 @@ class _TrainerDash extends State<TrainerDash> {
                                       ),*/
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          width: 3, color: Colors.white),
-                                      borderRadius: BorderRadius.circular(15),
+                                          width: 5, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          width: 3, color: Colors.white),
+                                          width: 5, color: Colors.white),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          width: 3, color: Colors.white),
+                                          width: 5, color: Colors.white),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
+
                                   ),
+
+
+
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter a task name';
@@ -414,7 +441,9 @@ class _TrainerDash extends State<TrainerDash> {
                                   onSaved: (value) {
                                     _taskName = value!;
                                   },
+
                                 ),
+                                
                                 const SizedBox(height: 20),
 
                                 /*StreamBuilder<QuerySnapshot>(
@@ -471,56 +500,62 @@ class _TrainerDash extends State<TrainerDash> {
 
                                   ),*/
 
-                                StreamBuilder<QuerySnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('School')
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    List<DropdownMenuItem<String>> clientItems =
-                                        [];
-                                    if (!snapshot.hasData) {
-                                      return CircularProgressIndicator();
-                                    } else {
-                                      final clients =
-                                          snapshot.data!.docs.reversed.toList();
-                                      clientItems.add(DropdownMenuItem<String>(
-                                        value: "0",
-                                        child: Text("Select School"),
-                                      ));
-                                      for (var client in clients) {
-                                        clientItems
-                                            .add(DropdownMenuItem<String>(
-                                          value: client.id,
-                                          child: Text(client.id),
+                                Container(padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white/*const Color.fromARGB(
+                                        255, 172, 62, 65)*/,
+                                  ),
+                                  child: StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('School')
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      List<DropdownMenuItem<String>> clientItems =
+                                          [];
+                                      if (!snapshot.hasData) {
+                                        return CircularProgressIndicator();
+                                      } else {
+                                        final clients =
+                                            snapshot.data!.docs.reversed.toList();
+                                        clientItems.add(DropdownMenuItem<String>(
+                                          value: "0",
+                                          child: Text("Select School"),
                                         ));
+                                        for (var client in clients) {
+                                          clientItems
+                                              .add(DropdownMenuItem<String>(
+                                            value: client.id,
+                                            child: Text(client.id),
+                                          ));
+                                        }
                                       }
-                                    }
-                                    return DropdownButton<String>(
-                                      items: clientItems,
-                                      onChanged: (clientValue) {
-                                        setState(() {
-                                          selectedClient = clientValue!;
-                                        });
-                                        print(clientValue);
+                                      return DropdownButton<String>(
+                                        items: clientItems,
+                                        onChanged: (clientValue) {
+                                          setState(() {
+                                            selectedClient = clientValue!;
+                                          });
+                                          print(clientValue);
 
-                                      },
-                                      icon: Padding( //Icon at tail, arrow bottom is default icon
-                                          padding: EdgeInsets.only(left:20),
-                                          child:Icon(Icons.arrow_circle_down_sharp)
-                                      ),
-                                      iconEnabledColor: Colors.black, //Icon color
-                                      style: TextStyle(  //te
-                                          color: Colors.black, //Font color
-                                          fontSize: 20 //font size on dropdown button
-                                      ),
+                                        },
+                                        icon: Padding( //Icon at tail, arrow bottom is default icon
+                                            padding: EdgeInsets.only(left:20),
+                                            child:Icon(Icons.arrow_circle_down_sharp)
+                                        ),
+                                        iconEnabledColor: Colors.black, //Icon color
+                                        style: TextStyle(  //te
+                                            color: Colors.black, //Font color
+                                            fontSize: 20 //font size on dropdown button
+                                        ),
 
-                                      dropdownColor: Colors.white, //dropdown background color
-                                      underline: Container(), //remove underline
-                                      isExpanded: true,
-                                      value: selectedClient,
+                                        dropdownColor: Colors.white, //dropdown background color
+                                        underline: Container(), //remove underline
+                                        isExpanded: true,
+                                        value: selectedClient,
 
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 TextField(

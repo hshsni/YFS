@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/SchoolCard.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/TrainerCard.dart';
-import 'package:youth_compass_application/Pages/Feedback.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/Feedback.dart';
 
-import '../Utils/AppDrawer.dart';
-import 'TaskCard.dart';
+import '../../Utils/AppDrawer.dart';
+import '../TaskCard.dart';
 
 class volunteerDash extends StatefulWidget {
   const volunteerDash({Key? key}) : super(key: key);
