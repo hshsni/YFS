@@ -118,7 +118,9 @@ class _TrainerDash extends State<TrainerDash> {
                                       title: const Text(
                                         'Assign Task',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 30, color: Colors.black,fontWeight: FontWeight.w300),
                                       ),
+
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
                                       ),
@@ -148,12 +150,14 @@ class _TrainerDash extends State<TrainerDash> {
                                                       final clients = snapshot
                                                           .data!.docs.reversed
                                                           .toList();
+
                                                       clientItems.add(
                                                           DropdownMenuItem<
                                                               String>(
                                                         value: "0",
                                                         child: Text(
                                                             "Select Volunteer"),
+
                                                       ));
                                                       for (var client
                                                           in clients) {
@@ -176,12 +180,27 @@ class _TrainerDash extends State<TrainerDash> {
                                                         });
                                                         print(clientValue);
                                                       },
+                                                      icon: Padding( //Icon at tail, arrow bottom is default icon
+                                                          padding: EdgeInsets.only(left:20),
+                                                          child:Icon(Icons.arrow_circle_down_sharp)
+                                                      ),
+                                                      iconEnabledColor: Colors.black, //Icon color
+                                                      style: TextStyle(  //te
+                                                          color: Colors.black, //Font color
+                                                          fontSize: 20 //font size on dropdown button
+                                                      ),
+
+                                                      dropdownColor: Colors.white, //dropdown background color
+                                                      underline: Container(), //remove underline
+                                                      isExpanded: true, //make true to make width 100%
+
                                                       value: selectedClient,
-                                                      isExpanded: false,
+
                                                     );
                                                   },
                                                 ),
                                                 const SizedBox(height: 20),
+
                                                 StreamBuilder<QuerySnapshot>(
                                                   stream: FirebaseFirestore
                                                       .instance
@@ -204,7 +223,11 @@ class _TrainerDash extends State<TrainerDash> {
                                                         value: "0",
                                                         child: Text(
                                                             "Select School"),
-                                                      ));
+                                                      ),
+
+
+
+                                                      );
                                                       for (var client
                                                           in clients) {
                                                         clientItems.add(
@@ -213,7 +236,9 @@ class _TrainerDash extends State<TrainerDash> {
                                                           value: client.id,
                                                           child:
                                                               Text(client.id),
-                                                        ));
+
+                                                        ),
+                                                        );
                                                       }
                                                     }
                                                     return DropdownButton<
@@ -226,9 +251,24 @@ class _TrainerDash extends State<TrainerDash> {
                                                         });
                                                         print(clientValue);
                                                       },
+                                                      icon: Padding( //Icon at tail, arrow bottom is default icon
+                                                          padding: EdgeInsets.only(left:20),
+                                                          child:Icon(Icons.arrow_circle_down_sharp)
+                                                      ),
+                                                      iconEnabledColor: Colors.black, //Icon color
+                                                      style: TextStyle(  //te
+                                                          color: Colors.black, //Font color
+                                                          fontSize: 20 //font size on dropdown button
+                                                      ),
+
+                                                      dropdownColor: Colors.white, //dropdown background color
+                                                      underline: Container(), //remove underline
+                                                      isExpanded: true, //make true to make width 100%
+
                                                       value: selectedClient,
-                                                      isExpanded: false,
+
                                                     );
+
                                                   },
                                                 ),
                                                 const SizedBox(height: 20),
@@ -326,6 +366,7 @@ class _TrainerDash extends State<TrainerDash> {
                       title: const Text(
                         'Create Task',
                         textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 30, color: Colors.black,fontWeight: FontWeight.w300),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -461,9 +502,23 @@ class _TrainerDash extends State<TrainerDash> {
                                           selectedClient = clientValue!;
                                         });
                                         print(clientValue);
+
                                       },
+                                      icon: Padding( //Icon at tail, arrow bottom is default icon
+                                          padding: EdgeInsets.only(left:20),
+                                          child:Icon(Icons.arrow_circle_down_sharp)
+                                      ),
+                                      iconEnabledColor: Colors.black, //Icon color
+                                      style: TextStyle(  //te
+                                          color: Colors.black, //Font color
+                                          fontSize: 20 //font size on dropdown button
+                                      ),
+
+                                      dropdownColor: Colors.white, //dropdown background color
+                                      underline: Container(), //remove underline
+                                      isExpanded: true,
                                       value: selectedClient,
-                                      isExpanded: false,
+
                                     );
                                   },
                                 ),
