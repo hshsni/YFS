@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) =>TrainerHub(),
+          builder: (context) =>AdminHub(),
         ),
       );
     }
@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                                               .pushAndRemoveUntil(
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      TrainerHub()),
+                                                      AdminHub()),
                                                   (route) => false);
                                         }
                                       }

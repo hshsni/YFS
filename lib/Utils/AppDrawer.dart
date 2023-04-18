@@ -52,12 +52,14 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.verified_user),
             title: const Text('volunteer Profile'),
-            onTap: () => {},
+            onTap: () => {Navigator.push(context,
+                MaterialPageRoute(builder: (_) => VolunteerHub()))},
           ),
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('trainer Settings'),
-            onTap: () => {},
+            onTap: () => {Navigator.push(context,
+                MaterialPageRoute(builder: (_) => TrainerHub()))},
           ),
           ListTile(
             leading: const Icon(Icons.border_color),
