@@ -39,9 +39,9 @@ class _TrainerDash extends State<TrainerDash> {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
+
   updateTextandClear1() {
     setState(() {
-
       final snackBar = SnackBar(
         content: const Text('Assign Task Successfully!'),
         action: SnackBarAction(
@@ -53,33 +53,33 @@ class _TrainerDash extends State<TrainerDash> {
     });
   }
 
-  final CollectionReference schools = FirebaseFirestore.instance
-      .collection('School');
-  final CollectionReference Task = FirebaseFirestore.instance
-      .collection('Tasks');
-  String selectedClient="0";
+  final CollectionReference schools =
+      FirebaseFirestore.instance.collection('School');
+  final CollectionReference Task =
+      FirebaseFirestore.instance.collection('Tasks');
+  String selectedClient = "0";
 
   final _formKey = GlobalKey<FormState>();
   late String _taskName;
   late String _description;
-  String _schoolName="Jyothy Institute of Technology";
+  String _schoolName = "Jyothy Institute of Technology";
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       // TODO: Handle form submission
     }
   }
-@override
+
+  @override
   void initState() {
     // TODO: implement
-  _schoolName="";
+    _schoolName = "";
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 235, 215, 164),
       drawer: const AppDrawer(),
@@ -101,7 +101,7 @@ class _TrainerDash extends State<TrainerDash> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
-                  streamSnapshot.data!.docs[index];
+                      streamSnapshot.data!.docs[index];
 
                   return Card(
                     margin: const EdgeInsets.all(10),
@@ -110,160 +110,199 @@ class _TrainerDash extends State<TrainerDash> {
                         ListTile(
                           subtitle: Text(documentSnapshot['description']),
                           title: Text(documentSnapshot['title']),
-                          onTap: () =>
-                          {
-                          showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
+                          onTap: () => {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      title: const Text(
+                                        'Assign Task',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 235, 215, 164),
+                                      content: SingleChildScrollView(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Form(
+                                            key: _formKey,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                StreamBuilder<QuerySnapshot>(
+                                                  stream: FirebaseFirestore
+                                                      .instance
+                                                      .collection('Users')
+                                                      .snapshots(),
+                                                  builder: (context, snapshot) {
+                                                    List<
+                                                            DropdownMenuItem<
+                                                                String>>
+                                                        clientItems = [];
+                                                    if (!snapshot.hasData) {
+                                                      return CircularProgressIndicator();
+                                                    } else {
+                                                      final clients = snapshot
+                                                          .data!.docs.reversed
+                                                          .toList();
+                                                      clientItems.add(
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                        value: "0",
+                                                        child: Text(
+                                                            "Select Volunteer"),
+                                                      ));
+                                                      for (var client
+                                                          in clients) {
+                                                        clientItems.add(
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                          value: client.id,
+                                                          child: Text(
+                                                              client['name']),
+                                                        ));
+                                                      }
+                                                    }
+                                                    return DropdownButton<
+                                                        String>(
+                                                      items: clientItems,
+                                                      onChanged: (clientValue) {
+                                                        setState(() {
+                                                          selectedClient =
+                                                              clientValue!;
+                                                        });
+                                                        print(clientValue);
+                                                      },
+                                                      value: selectedClient,
+                                                      isExpanded: false,
+                                                    );
+                                                  },
+                                                ),
+                                                const SizedBox(height: 20),
+                                                StreamBuilder<QuerySnapshot>(
+                                                  stream: FirebaseFirestore
+                                                      .instance
+                                                      .collection('School')
+                                                      .snapshots(),
+                                                  builder: (context, snapshot) {
+                                                    List<
+                                                            DropdownMenuItem<
+                                                                String>>
+                                                        clientItems = [];
+                                                    if (!snapshot.hasData) {
+                                                      return CircularProgressIndicator();
+                                                    } else {
+                                                      final clients = snapshot
+                                                          .data!.docs.reversed
+                                                          .toList();
+                                                      clientItems.add(
+                                                          DropdownMenuItem<
+                                                              String>(
+                                                        value: "0",
+                                                        child: Text(
+                                                            "Select School"),
+                                                      ));
+                                                      for (var client
+                                                          in clients) {
+                                                        clientItems.add(
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                          value: client.id,
+                                                          child:
+                                                              Text(client.id),
+                                                        ));
+                                                      }
+                                                    }
+                                                    return DropdownButton<
+                                                        String>(
+                                                      items: clientItems,
+                                                      onChanged: (clientValue) {
+                                                        setState(() {
+                                                          selectedClient =
+                                                              clientValue!;
+                                                        });
+                                                        print(clientValue);
+                                                      },
+                                                      value: selectedClient,
+                                                      isExpanded: false,
+                                                    );
+                                                  },
+                                                ),
+                                                const SizedBox(height: 20),
+                                                Center(
+                                                  child: ElevatedButton(
+                                                    onPressed: () async {
+                                                      if (_titleTextController
+                                                              .text.isEmpty ||
+                                                          _descriptionTextController
+                                                              .text.isEmpty) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            content: Text(
+                                                                'Please enter all fields'),
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        //adding school to firebase along with email as field
+                                                        CollectionReference
+                                                            Task =
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'Tasks');
 
-                          return AlertDialog(
-                          title: const Text('Assign Task',textAlign: TextAlign.center,),
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-
-                          ),
-                          backgroundColor: Color.fromARGB(255, 235, 215, 164),
-                          content: SingleChildScrollView(
-                          child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Form(
-                          key: _formKey,
-                          child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance.collection('Users').snapshots(),
-                              builder: (context, snapshot) {
-                                List<DropdownMenuItem<String>> clientItems = [];
-                                if (!snapshot.hasData) {
-                                  return CircularProgressIndicator();
-                                } else {
-                                  final clients = snapshot.data!.docs.reversed.toList();
-                                  clientItems.add(DropdownMenuItem<String>(
-                                    value: "0",
-                                    child: Text("Select Volunteer"),
-                                  ));
-                                  for (var client in clients) {
-                                    clientItems.add(DropdownMenuItem<String>(
-                                      value: client.id,
-                                      child: Text(client['name']),
-
-                                    ));
-                                  }
-                                }
-                                return DropdownButton<String>(
-                                  items: clientItems,
-                                  onChanged: (clientValue) {
-                                    setState(() {
-                                      selectedClient = clientValue!;
-                                    });
-                                    print(clientValue);
-                                  },
-                                  value: selectedClient,
-                                  isExpanded: false,
-
-
-                                );
-                              },
-                            ),
-                          const SizedBox(height: 20),
-
-
-
-                          StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance.collection('School').snapshots(),
-                          builder: (context, snapshot) {
-                          List<DropdownMenuItem<String>> clientItems = [];
-                          if (!snapshot.hasData) {
-                          return CircularProgressIndicator();
-                          } else {
-                          final clients = snapshot.data!.docs.reversed.toList();
-                          clientItems.add(DropdownMenuItem<String>(
-                          value: "0",
-                          child: Text("Select School"),
-                          ));
-                          for (var client in clients) {
-                          clientItems.add(DropdownMenuItem<String>(
-                          value: client.id,
-                          child: Text(client.id),
-
-                          ));
-                          }
-                          }
-                          return DropdownButton<String>(
-                          items: clientItems,
-                          onChanged: (clientValue) {
-                          setState(() {
-                          selectedClient = clientValue!;
-                          });
-                          print(clientValue);
-                          },
-                          value: selectedClient,
-                          isExpanded: false,
-
-
-                          );
-                          },
-                          ),
-
-
-
-                          const SizedBox(height: 20),
-
-                          Center(
-                          child: ElevatedButton(
-                          onPressed: () async{
-                          if (_titleTextController.text.isEmpty ||
-                          _descriptionTextController.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                          content: Text('Please enter all fields'),
-                          ),
-                          );
-                          }
-                          else {
-                          //adding school to firebase along with email as field
-                          CollectionReference Task = FirebaseFirestore
-                              .instance
-                              .collection('Tasks');
-
-                          Task
-                              .doc()
-                              .set({"title": _titleTextController.text,"description":_descriptionTextController.text}).then(updateTextandClear1());
-                          if (!mounted) return;
-                          return Navigator.of(context).pop();
-
-
-                          }
-                          },
-                          style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 172, 62, 65),
-                          fixedSize:
-                          Size(size.width * 0.58, size.height * 0.09),
-                          shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(10), // <-- Radius
-                          ),
-                          ),
-                          child: const Text(
-                          'Assign Task',
-                          style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                          ),
-                          ),
-                          ),
-                          ),
-                          ],
-                          ),
-                          ),
-                          )
-                          ,
-                          )
-                          );
-                          }
-                          ),
+                                                        Task.doc().set({
+                                                          "title":
+                                                              _titleTextController
+                                                                  .text,
+                                                          "description":
+                                                              _descriptionTextController
+                                                                  .text
+                                                        }).then(
+                                                            updateTextandClear1());
+                                                        if (!mounted) return;
+                                                        return Navigator.of(
+                                                                context)
+                                                            .pop();
+                                                      }
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      primary:
+                                                          const Color.fromARGB(
+                                                              255, 172, 62, 65),
+                                                      fixedSize: Size(
+                                                          size.width * 0.58,
+                                                          size.height * 0.09),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                10), // <-- Radius
+                                                      ),
+                                                    ),
+                                                    child: const Text(
+                                                      'Assign Task',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 30,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ));
+                                }),
                           },
                         ),
                       ],
@@ -277,68 +316,67 @@ class _TrainerDash extends State<TrainerDash> {
         stream: Task.snapshots(),
       ),
       floatingActionButton: Padding(
-
         padding: const EdgeInsets.all(65.0),
         child: FloatingActionButton(
-
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-
-                    return AlertDialog(
-                        title: const Text('Create Task',textAlign: TextAlign.center,),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-
-                        ),
-                        backgroundColor: Color.fromARGB(255, 235, 215, 164),
-                        content: SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TextFormField(
-                                    controller: _titleTextController,
-                                    decoration: InputDecoration(
-                                      hintText: 'Enter Task Name',
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: const Text(
+                        'Create Task',
+                        textAlign: TextAlign.center,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Color.fromARGB(255, 235, 215, 164),
+                      content: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextFormField(
+                                  controller: _titleTextController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter Task Name',
                                     /*  icon: const Icon(
                                         Icons.person,
                                         color: Colors.redAccent,
                                         size: 45.0,
                                       ),*/
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a task name';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      _taskName = value!;
-                                    },
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
                                   ),
-                                  const SizedBox(height: 20),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter a task name';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    _taskName = value!;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
 
-                                  /*StreamBuilder<QuerySnapshot>(
+                                /*StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance.collection("School").snapshots(),
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData)
@@ -392,27 +430,31 @@ class _TrainerDash extends State<TrainerDash> {
 
                                   ),*/
 
-                              StreamBuilder<QuerySnapshot>(
-                                stream: FirebaseFirestore.instance.collection('School').snapshots(),
-                                builder: (context, snapshot) {
-                                  List<DropdownMenuItem<String>> clientItems = [];
-                                  if (!snapshot.hasData) {
-                                    return CircularProgressIndicator();
-                                  } else {
-                                    final clients = snapshot.data!.docs.reversed.toList();
-                                    clientItems.add(DropdownMenuItem<String>(
-                                      value: "0",
-                                      child: Text("Select School"),
-                                    ));
-                                    for (var client in clients) {
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('School')
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    List<DropdownMenuItem<String>> clientItems =
+                                        [];
+                                    if (!snapshot.hasData) {
+                                      return CircularProgressIndicator();
+                                    } else {
+                                      final clients =
+                                          snapshot.data!.docs.reversed.toList();
                                       clientItems.add(DropdownMenuItem<String>(
-                                        value: client.id,
-                                        child: Text(client.id),
-
+                                        value: "0",
+                                        child: Text("Select School"),
                                       ));
+                                      for (var client in clients) {
+                                        clientItems
+                                            .add(DropdownMenuItem<String>(
+                                          value: client.id,
+                                          child: Text(client.id),
+                                        ));
+                                      }
                                     }
-                                  }
-                                  return DropdownButton<String>(
+                                    return DropdownButton<String>(
                                       items: clientItems,
                                       onChanged: (clientValue) {
                                         setState(() {
@@ -422,43 +464,41 @@ class _TrainerDash extends State<TrainerDash> {
                                       },
                                       value: selectedClient,
                                       isExpanded: false,
-
-
-                                  );
+                                    );
                                   },
-                              ),
-
-                                  const SizedBox(height: 20),
-                                  TextField(
-                                    controller: _descriptionTextController,
-                                    keyboardType: TextInputType.multiline,
-                                    minLines: 5,//Normal textInputField will be displayed
-                                    maxLines: 10,
-                                    decoration: InputDecoration(
-                                      hintText: 'Description',
-                                      /*  icon: const Icon(
+                                ),
+                                const SizedBox(height: 20),
+                                TextField(
+                                  controller: _descriptionTextController,
+                                  keyboardType: TextInputType.multiline,
+                                  minLines: 5,
+                                  //Normal textInputField will be displayed
+                                  maxLines: 10,
+                                  decoration: InputDecoration(
+                                    hintText: 'Description',
+                                    /*  icon: const Icon(
                                         Icons.person,
                                         color: Colors.redAccent,
                                         size: 45.0,
                                       ),*/
 
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 3, color: Colors.white),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    /*validator: (value) {
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          width: 3, color: Colors.white),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                  ),
+                                  /*validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter a task name';
                                       }
@@ -467,70 +507,66 @@ class _TrainerDash extends State<TrainerDash> {
                                     onSaved: (value) {
                                       _taskName = value!;
                                     },*/
-                                  ),
-                                  const SizedBox(height: 20),
+                                ),
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () async {
+                                      if (_titleTextController.text.isEmpty ||
+                                          _descriptionTextController
+                                              .text.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content:
+                                                Text('Please enter all fields'),
+                                          ),
+                                        );
+                                      } else {
+                                        //adding school to firebase along with email as field
+                                        CollectionReference Task =
+                                            FirebaseFirestore.instance
+                                                .collection('Tasks');
 
-                                  Center(
-                                    child: ElevatedButton(
-                                      onPressed: () async{
-                                        if (_titleTextController.text.isEmpty ||
-                                            _descriptionTextController.text.isEmpty) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(
-                                              content: Text('Please enter all fields'),
-                                            ),
-                                          );
-                                        }
-                                        else {
-                                          //adding school to firebase along with email as field
-                                          CollectionReference Task = FirebaseFirestore
-                                              .instance
-                                              .collection('Tasks');
-
-                                          Task
-                                              .doc()
-                                              .set({"title": _titleTextController.text,"description":_descriptionTextController.text}).then(updateTextandClear());
-                                          if (!mounted) return;
-                                          return Navigator.of(context).pop();
-
-
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: const Color.fromARGB(255, 172, 62, 65),
-                                        fixedSize:
-                                        Size(size.width * 0.58, size.height * 0.09),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(10), // <-- Radius
-                                        ),
+                                        Task.doc().set({
+                                          "title": _titleTextController.text,
+                                          "description":
+                                              _descriptionTextController.text
+                                        }).then(updateTextandClear());
+                                        if (!mounted) return;
+                                        return Navigator.of(context).pop();
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: const Color.fromARGB(
+                                          255, 172, 62, 65),
+                                      fixedSize: Size(size.width * 0.58,
+                                          size.height * 0.09),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10), // <-- Radius
                                       ),
-                                      child: const Text(
-                                        'Create Task',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                    ),
+                                    child: const Text(
+                                      'Create Task',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          )
-                          ,
-                        )
-                    );
-                  }
-              );
-            },
+                          ),
+                        ),
+                      ));
+                });
+          },
           backgroundColor: Colors.red,
           child: const Icon(Icons.add_task_sharp),
         ),
-
-
-
       ),
     );
   }
