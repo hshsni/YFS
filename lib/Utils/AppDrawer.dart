@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/Trainer_Hub.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/Volunteer_Hub.dart';
-
-import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/vl_dashboard.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/Feedback.dart';
+
+import '../Trainer Files/Trainer_Hub.dart';
+import '../Volunteer Files/Feedback.dart';
+import '../Volunteer Files/Volunteer_Hub.dart';
+
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);

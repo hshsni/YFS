@@ -1,31 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
 
-import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/vl_dashboard.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Volunteer/Feedback.dart';
+import 'package:youth_compass_application/Pages/ViewTask.dart';
+import 'package:youth_compass_application/Trainer%20Files/tr_dashboard.dart';
 
 
-class VolunteerHub extends StatefulWidget {
-  const VolunteerHub({Key? key}) : super(key: key);
+class TrainerHub extends StatefulWidget {
+  const TrainerHub({Key? key}) : super(key: key);
 
   @override
-  State<VolunteerHub> createState() => _VolunteerHubState();
-
+  State<TrainerHub> createState() => _TrainerHubState();
 }
 
-class _VolunteerHubState extends State<VolunteerHub> {
-  final CollectionReference schools = FirebaseFirestore.instance
-      .collection('School');
+class _TrainerHubState extends State<TrainerHub> {
   var screens;
 
   @override
   void initState() {
     screens = [
-      volunteerDash(),
-      Feedback1(),
+      TrainerDash(),
+      ViewTask(),
     ];
     super.initState();
   }
@@ -33,14 +28,13 @@ class _VolunteerHubState extends State<VolunteerHub> {
   int index = 0;
 
   final items = <Widget>[
-    Icon(Icons.view_agenda_sharp, size: 30),
-    Icon(Icons.feedback_rounded,size: 30,)
+    Icon(Icons.view_agenda_outlined, size: 30),
+    Icon(Icons.assignment_ind_outlined,size: 30,)
 
   ];
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
       body: screens[index],
@@ -55,6 +49,5 @@ class _VolunteerHubState extends State<VolunteerHub> {
         animationDuration: Duration(milliseconds: 400),
       ),
     );
-
   }
 }

@@ -1,27 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
+import 'package:youth_compass_application/Volunteer%20Files/vl_dashboard.dart';
 
-import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/tr_dashboard.dart';
-import 'package:youth_compass_application/Pages/ViewTask.dart';
+import 'Feedback.dart';
 
 
-class TrainerHub extends StatefulWidget {
-  const TrainerHub({Key? key}) : super(key: key);
+class VolunteerHub extends StatefulWidget {
+  const VolunteerHub({Key? key}) : super(key: key);
 
   @override
-  State<TrainerHub> createState() => _TrainerHubState();
+  State<VolunteerHub> createState() => _VolunteerHubState();
+
 }
 
-class _TrainerHubState extends State<TrainerHub> {
+class _VolunteerHubState extends State<VolunteerHub> {
+  final CollectionReference schools = FirebaseFirestore.instance
+      .collection('School');
   var screens;
 
   @override
   void initState() {
     screens = [
-      TrainerDash(),
-
-      ViewTask(),
+      volunteerDash(),
+      Feedback1(),
     ];
     super.initState();
   }
@@ -29,13 +32,14 @@ class _TrainerHubState extends State<TrainerHub> {
   int index = 0;
 
   final items = <Widget>[
-    Icon(Icons.view_agenda_outlined, size: 30),
-    Icon(Icons.assignment_ind_outlined,size: 30,)
+    Icon(Icons.view_agenda_sharp, size: 30),
+    Icon(Icons.feedback_rounded,size: 30,)
 
   ];
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
       body: screens[index],
@@ -50,5 +54,6 @@ class _TrainerHubState extends State<TrainerHub> {
         animationDuration: Duration(milliseconds: 400),
       ),
     );
+
   }
 }

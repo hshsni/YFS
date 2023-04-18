@@ -4,10 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/SchoolCard.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Trainer/TrainerCard.dart';
 
 import '../../Utils/AppDrawer.dart';
-import '../TaskCard.dart';
 
 class TrainerDash extends StatefulWidget {
   const TrainerDash({Key? key}) : super(key: key);
