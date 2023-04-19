@@ -7,6 +7,7 @@ import 'package:youth_compass_application/Login%20Files/SignUpEmail.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
 import '../Utils/size_config.dart';
 import 'fire_auth.dart';
+import 'otpPage.dart';
 
 class SignUpPhone extends StatefulWidget {
   const SignUpPhone({Key? key}) : super(key: key);
@@ -157,7 +158,7 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                         _isProcessing = true;
                                       });
 
-                                      sendOtpMsg(_phoneTextController.text);
+                                      sendOtpMsg(_phoneTextController.text.trim());
                                     },
                                     child: Container(
                                       height: 40,
@@ -176,32 +177,41 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                             ],
                           ),
                         const SizedBox(height: 15.0),
-                        const Center(
-                          child: Text(
-                            "Already have an account?",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left:
+                              SizeConfig.blockSizeHorizontal*13),
+                          child: Row(
+                            children: [
+                              const Center(
+                                child: Text(
+                                  "Already have an account?",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const LoginPage()));
+                                },
+                                child: Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+
+                            ],
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const LoginPage()));
-                          },
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.blue,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: SizeConfig.blockSizeVertical * 10.0),
                         const Center(
                           child: Text(
                             "OR",
@@ -211,44 +221,49 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    SizeConfig.blockSizeHorizontal * 20.0),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                )),
-                                backgroundColor: MaterialStateColor.resolveWith(
-                                  (states) =>
-                                      const Color.fromARGB(255, 172, 62, 65),
-                                ),
-                                fixedSize: MaterialStateProperty.all(
-                                    const Size(180, 50)),
-                              ),
-                              onPressed: ()
-                              {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const SignUpEmail()));
-                              },
-                              child: const SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Sign up with Email instead',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                        SizedBox(height: SizeConfig.blockSizeVertical * 3.0),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        SizeConfig.blockSizeHorizontal * 10.0),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    )),
+                                    backgroundColor: MaterialStateColor.resolveWith(
+                                      (states) =>
+                                          const Color.fromARGB(255, 172, 62, 65),
+                                    ),
+                                    fixedSize: MaterialStateProperty.all(
+                                        const Size(180, 50)),
+                                  ),
+                                  onPressed: ()
+                                  {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => const SignUpEmail()));
+                                  },
+                                  child: const SizedBox(
+                                    height: 40,
+                                    child: Center(
+                                      child: Text(
+                                        'Sign Up with Email instead',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         )
                       ],
                     ),
@@ -272,7 +287,13 @@ class _SignUpPhoneState extends State<SignUpPhone> {
       verificationCompleted: (PhoneAuthCredential credential) {},
       phoneNumber: countryCode + phone,
       verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) {},
+      codeSent: (String verificationId, int? resendToken)
+      {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => const otpPage()));
+      },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
   }
