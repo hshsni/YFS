@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Lato',
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: SignUpPhone(),
     );
   }
 }

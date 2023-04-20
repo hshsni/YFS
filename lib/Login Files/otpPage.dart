@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
+import 'package:youth_compass_application/Login%20Files/SignUpPhone.dart';
 import '../Utils/size_config.dart';
 
 class otpPage extends StatefulWidget {
@@ -11,6 +14,8 @@ class otpPage extends StatefulWidget {
 
 class _otpPageState extends State<otpPage> {
 
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  var code = "";
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -76,7 +81,9 @@ class _otpPageState extends State<otpPage> {
                 // defaultPinTheme: defaultPinTheme,
                 // focusedPinTheme: focusedPinTheme,
                 // submittedPinTheme: submittedPinTheme,
-
+                onChanged: (value) {
+                  code = value;
+                },
                 showCursor: true,
                 onCompleted: (pin) => print(pin),
               ),
@@ -104,8 +111,22 @@ class _otpPageState extends State<otpPage> {
                       fixedSize: MaterialStateProperty.all(
                           const Size(180, 50)),
                     ),
-                    onPressed: () {
-
+                    onPressed: () async {
+                      try{
+                        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: SignUpPhone.verify, smsCode: code);
+                        await auth.signInWithCredential(credential);
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => AdminHub()), (route) => false);
+                      }
+                      catch(e){
+                        final snackBar = SnackBar(
+                          content: const Text('Wrong OTP entered'),
+                          action: SnackBarAction(
+                            label: 'Dismiss',
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     },
                     child: const SizedBox(
                       height: 40,

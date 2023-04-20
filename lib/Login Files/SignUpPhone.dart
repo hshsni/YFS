@@ -12,6 +12,7 @@ import 'otpPage.dart';
 class SignUpPhone extends StatefulWidget {
   const SignUpPhone({Key? key}) : super(key: key);
 
+  static String verify = "";
   @override
   State<SignUpPhone> createState() => _SignUpPhoneState();
 }
@@ -159,6 +160,9 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                       });
 
                                       sendOtpMsg(_phoneTextController.text.trim());
+                                      setState(() {
+                                        _isProcessing = false;
+                                      });
                                     },
                                     child: Container(
                                       height: 40,
@@ -289,6 +293,7 @@ class _SignUpPhoneState extends State<SignUpPhone> {
       verificationFailed: (FirebaseAuthException e) {},
       codeSent: (String verificationId, int? resendToken)
       {
+        SignUpPhone.verify = verificationId;
         Navigator.push(
             context,
             MaterialPageRoute(
