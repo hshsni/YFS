@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
@@ -13,9 +14,11 @@ class otpPage extends StatefulWidget {
 }
 
 class _otpPageState extends State<otpPage> {
+  bool _isProcessing = false;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -65,7 +68,10 @@ class _otpPageState extends State<otpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Please enter the One Time Password that will be sent on your device", textAlign: TextAlign.center,),
+              Text(
+                "Please enter the One Time Password that will be sent on your device",
+                textAlign: TextAlign.center,
+              ),
               SizedBox(
                 height: 25,
               ),
@@ -93,52 +99,87 @@ class _otpPageState extends State<otpPage> {
               SizedBox(
                 width: double.infinity,
                 height: 45,
-                child:Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.blockSizeHorizontal*20.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          )
-                      ),
-                      backgroundColor:
-                      MaterialStateColor.resolveWith(
-                            (states) => const Color.fromARGB(
-                            255, 172, 62, 65),
-                      ),
-                      fixedSize: MaterialStateProperty.all(
-                          const Size(180, 50)),
-                    ),
-                    onPressed: () async {
-                      try{
-                        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: SignUpPhone.verify, smsCode: code);
-                        await auth.signInWithCredential(credential);
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => AdminHub()), (route) => false);
-                      }
-                      catch(e){
-                        final snackBar = SnackBar(
-                          content: const Text('Wrong OTP entered'),
-                          action: SnackBarAction(
-                            label: 'Dismiss',
-                            onPressed: () {},
+                      horizontal: SizeConfig.blockSizeHorizontal * 20.0),
+                  child: _isProcessing
+                      ? ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            )),
+                            backgroundColor: MaterialStateColor.resolveWith(
+                              (states) =>
+                                  const Color.fromARGB(255, 172, 62, 65),
+                            ),
+                            fixedSize:
+                                MaterialStateProperty.all(const Size(180, 50)),
                           ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    },
-                    child: const SizedBox(
-                      height: 40,
-                      child: Center(
-                        child: Text(
-                          'VERIFY',
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 20),
+                          onPressed: () async {
+                            try {
+                              PhoneAuthCredential credential =
+                                  PhoneAuthProvider.credential(
+                                      verificationId: SignUpPhone.verify,
+                                      smsCode: code);
+                              setState(() {
+                                _isProcessing = true;
+                              });
+                              UserCredential userCreds =
+                                  await auth.signInWithCredential(credential);
+                              User? user = userCreds.user;
+                              final docId = FirebaseFirestore.instance
+                                  .collection('Users')
+                                  .doc(user?.uid);
+
+                              docId.get().then(
+                                    (DocumentSnapshot doc) {
+                                      //in case user is already registered
+                                },
+                                onError: (e) async => await docId.set({
+                              'phone': user?.phoneNumber,
+                              'approved': false
+                              }),
+                              );
+
+                              setState(() {
+                                _isProcessing = false;
+                              });
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => AdminHub()),
+                                  (route) => false);
+                            } catch (e) {
+                              setState(() {
+                                _isProcessing = false;
+                              });
+                              final snackBar = SnackBar(
+                                content: const Text('Wrong OTP entered'),
+                                action: SnackBarAction(
+                                  label: 'Dismiss',
+                                  onPressed: () {},
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          },
+                          child: SizedBox(
+                            height: 40,
+                            child: Center(
+                              child: Text(
+                                'VERIFY',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(
+                            color: Color.fromARGB(255, 172, 62, 65),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
               ),
               // Row(

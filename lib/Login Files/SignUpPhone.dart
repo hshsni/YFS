@@ -168,7 +168,7 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                       height: 40,
                                       child: const Center(
                                         child: Text(
-                                          'SIGN UP',
+                                          'SIGN UP/LOG IN',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20),
@@ -181,41 +181,6 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                             ],
                           ),
                         const SizedBox(height: 15.0),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left:
-                              SizeConfig.blockSizeHorizontal*13),
-                          child: Row(
-                            children: [
-                              const Center(
-                                child: Text(
-                                  "Already have an account?",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const LoginPage()));
-                                },
-                                child: Text(
-                                  "Sign In",
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.blue,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        ),
                         const Center(
                           child: Text(
                             "OR",

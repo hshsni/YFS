@@ -243,11 +243,13 @@ class _SignUpEmailState extends State<SignUpEmail> {
                                           email: _emailTextController.text,
                                           password:
                                           _passwordTextController.text,
+                                          context: context
                                         );
 
                                         setState(() {
                                           _isProcessing = false;
                                         });
+
                                         final docid = FirebaseFirestore.instance
                                             .collection('Users')
                                             .doc(user?.uid);
@@ -287,72 +289,92 @@ class _SignUpEmailState extends State<SignUpEmail> {
                             ],
                           ),
                         const SizedBox(height: 15.0),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left:
+                              SizeConfig.blockSizeHorizontal*13),
+                          child: Row(
+                            children: [
+                              const Center(
+                                child: Text(
+                                  "Already have an account?",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const LoginPage()));
+                                },
+                                child: Text(
+                                  "Sign In",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.blue,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ),
+                        const Center(
+                          child: Text(
+                            "OR",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: SizeConfig.blockSizeVertical * 3.0),
                         Row(
                           children: [
-                            const Center(
-                              child: Text(
-                                "Already have an account?",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const LoginPage()));
-                              },
-                              child: Text(
-                                "Sign In",
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Colors.blue,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: SizeConfig.blockSizeHorizontal*20.0),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    )
-                                ),
-                                backgroundColor:
-                                MaterialStateColor.resolveWith(
-                                      (states) => const Color.fromARGB(
-                                      255, 172, 62, 65),
-                                ),
-                                fixedSize: MaterialStateProperty.all(
-                                    const Size(180, 50)),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => const SignUpPhone()));
-                              },
-                              child: const SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Sign Up with Phone instead',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.blockSizeHorizontal*10.0),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        )
+                                    ),
+                                    backgroundColor:
+                                    MaterialStateColor.resolveWith(
+                                          (states) => const Color.fromARGB(
+                                          255, 172, 62, 65),
+                                    ),
+                                    fixedSize: MaterialStateProperty.all(
+                                        const Size(180, 50)),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) => const SignUpPhone()));
+                                  },
+                                  child: const SizedBox(
+                                    height: 40,
+                                    child: Center(
+                                      child: Text(
+                                        'Sign Up with Phone instead',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         )
                       ],
                     ),

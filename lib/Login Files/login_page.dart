@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Login%20Files/SignUpPhone.dart';
-
+import 'package:youth_compass_application/Login%20Files/SignUpEmail.dart';
 import '../Admin Dash Files/AdminHub.dart';
 import '../Utils/size_config.dart';
 import 'fire_auth.dart';
@@ -218,28 +217,13 @@ class _LoginPageState extends State<LoginPage> {
                                                   password:
                                                       _passwordTextController
                                                           .text,
+                                                  context: context
                                                 );
 
                                                 setState(() {
                                                   _isProcessing = false;
                                                 });
 
-                                                if (user != null) {
-                                                  try {} on FirebaseAuthException catch (e) {
-                                                    if (e.code ==
-                                                        'weak-password') {
-                                                    } else if (e.code ==
-                                                        'email-already-in-use') {
-                                                    } else if (e.code ==
-                                                        'user-not-found') {
-                                                    } else if (e.code ==
-                                                        'wrong-password') {}
-
-                                                    print(e
-                                                        .code); //Add this line to see other firebase exceptions.
-                                                  } catch (e) {
-                                                    print(e);
-                                                  }
                                                   Navigator.of(context)
                                                       .pushAndRemoveUntil(
                                                           MaterialPageRoute(
@@ -248,7 +232,6 @@ class _LoginPageState extends State<LoginPage> {
                                                                       AdminHub()),
                                                           (route) => false);
                                                 }
-                                              }
                                             },
                                             child: Text(
                                               'SIGN IN',
@@ -263,63 +246,41 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                             SizedBox(
                                 height: SizeConfig.blockSizeVertical * 3.0),
-                             Center(
-                              child: Text(
-                                "Don't have an account?",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: SizeConfig.blockSizeVertical * 3.0,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: SizeConfig.blockSizeVertical * 3.0),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            SizeConfig.blockSizeHorizontal *
-                                                20.0),
-                                    child: ElevatedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        )),
-                                        backgroundColor:
-                                            MaterialStateColor.resolveWith(
-                                          (states) => const Color.fromARGB(
-                                              255, 172, 62, 65),
-                                        ),
-                                        fixedSize: MaterialStateProperty.all(
-                                            const Size(180, 50)),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) =>
-                                                    const SignUpPhone()));
-                                      },
-                                      child: SizedBox(
-                                        height: 40,
-                                        child: Center(
-                                          child: Text(
-                                            'SIGN UP',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: SizeConfig.blockSizeVertical * 3.0),
-                                          ),
-                                        ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left:
+                                  SizeConfig.blockSizeHorizontal*13),
+                              child: Row(
+                                children: [
+                                  const Center(
+                                    child: Text(
+                                      "Don't have an account?",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => const SignUpEmail()));
+                                    },
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.blue,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
