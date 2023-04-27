@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/SchoolCard.dart';
 
-import '../Trainer Files/TrainerCard.dart';
+import 'TrainerCard.dart';
 import '../Utils/AppDrawer.dart';
 import 'TaskCard.dart';
 

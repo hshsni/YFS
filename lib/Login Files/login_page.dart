@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Login%20Files/SignUpEmail.dart';
 import '../Admin Dash Files/AdminHub.dart';
 import '../Utils/size_config.dart';
+import 'ConfirmedPage.dart';
 import 'fire_auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AdminHub(),
+          builder: (context) => ConfirmedPage(user: user),
         ),
       );
     }
