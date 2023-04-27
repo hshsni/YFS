@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
+import 'package:youth_compass_application/Login%20Files/MoreDetailsPage.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
 import '../Utils/size_config.dart';
 import 'fire_auth.dart';
@@ -256,7 +257,6 @@ class _SignUpEmailState extends State<SignUpEmail> {
 
                                         await docid.set({
                                           'email': user?.email,
-                                          'role': 'volunteer',
                                           'approved': false
                                         });
 
@@ -266,7 +266,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
                                               .pushAndRemoveUntil(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                const AdminHub()),
+                                                 MoreDetailsPage(user: user)),
                                             ModalRoute.withName('/'),
                                           ).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up successful!'))));
                                         }

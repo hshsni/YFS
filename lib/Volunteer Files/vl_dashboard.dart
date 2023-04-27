@@ -12,8 +12,8 @@ class volunteerDash extends StatefulWidget {
 }
 
 class _volunteerDash extends State<volunteerDash> {
-  final CollectionReference schools = FirebaseFirestore.instance
-      .collection('School');
+  final CollectionReference tasks = FirebaseFirestore.instance
+      .collection('Tasks');
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,8 @@ class _volunteerDash extends State<volunteerDash> {
                     child: Column(
                       children: [
                         ListTile(
-                          subtitle: Text(documentSnapshot['email']),
-                          title: Text(documentSnapshot.id.toString()),
+                          subtitle: Text(documentSnapshot['description']),
+                          title: Text(documentSnapshot['title']),
                           onTap: () => {Navigator.push(context,
                               MaterialPageRoute(builder: (_) => Feedback1()))},
                         ),
@@ -66,7 +66,7 @@ class _volunteerDash extends State<volunteerDash> {
           }
           return const Center(child: Text("No schools yet"));
         },
-        stream: schools.snapshots(),
+        stream: tasks.snapshots(),
       ),
     );
   }

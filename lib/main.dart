@@ -7,7 +7,7 @@ import 'package:youth_compass_application/Login%20Files/ConfirmedPage.dart';
 import 'Login Files/login_page.dart';
 import 'Login Files/otpPage.dart';
 
-
+enum Role {trainer, volunteer}
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

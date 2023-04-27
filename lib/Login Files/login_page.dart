@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
         body: FutureBuilder(
           future: _initializeFirebase(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.done || snapshot.connectionState == ConnectionState.waiting) {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 5.0),
                 child: Column(
