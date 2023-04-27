@@ -42,7 +42,7 @@ class _ConfirmedPageState extends State<ConfirmedPage> {
           }
         }
       } else {
-        print('Document does not exist on the database');
+        print('From Confirmed Page');
       }
     });
     setState(() {

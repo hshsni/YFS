@@ -145,8 +145,8 @@ class _SignUpEmailState extends State<SignUpEmail> {
                             keyboardType: TextInputType.name,
                             controller: _nameTextController,
                             focusNode: _focusName,
-                            validator: (value) => validateEmail(
-                              email: value,
+                            validator: (value) => validateName(
+                              name: value,
                             ),
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.person),

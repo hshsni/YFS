@@ -104,7 +104,7 @@ class _otpPageState extends State<otpPage> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.blockSizeHorizontal * 20.0),
-                  child: _isProcessing
+                  child: !_isProcessing
                       ? ElevatedButton(
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
@@ -130,22 +130,12 @@ class _otpPageState extends State<otpPage> {
                               UserCredential userCreds =
                                   await auth.signInWithCredential(credential);
                               User? user = userCreds.user;
-                              final docId = FirebaseFirestore.instance
+                              final docId = await FirebaseFirestore.instance
                                   .collection('Users')
-                                  .doc(user?.uid);
+                                  .doc(user?.uid).get();
 
-                              docId.get().then((DocumentSnapshot doc) {
-                                //in case user is already registered
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ConfirmedPage(
-                                        user: user,
-                                      ),
-                                    ),
-                                    (route) => false);
-                              }, onError: (e) async {
-                                await docId.set({
+                              if(!docId.exists){
+                                await docId.reference.set({
                                   'phone': user?.phoneNumber,
                                   'approved': false
                                 });
@@ -154,14 +144,46 @@ class _otpPageState extends State<otpPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => MoreDetailsPage(
-                                              user: user,
-                                            )),
-                                    (route) => false);
-                              });
+                                          user: user,
+                                        )),
+                                        (route) => false);
+                              }
+                              else{
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ConfirmedPage(
+                                        user: user,
+                                      ),
+                                    ),
+                                        (route) => false);
+                              }
 
-                              setState(() {
-                                _isProcessing = false;
-                              });
+                              // docId.get().then((DocumentSnapshot doc) {
+                              //   //in case user is already registered
+                              //   Navigator.pushAndRemoveUntil(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //         builder: (_) => ConfirmedPage(
+                              //           user: user,
+                              //         ),
+                              //       ),
+                              //       (route) => false);
+                              // }, onError: (e) async {
+                              //   await docId.set({
+                              //     'phone': user?.phoneNumber,
+                              //     'approved': false
+                              //   });
+                              //
+                              //   Navigator.pushAndRemoveUntil(
+                              //       context,
+                              //       MaterialPageRoute(
+                              //           builder: (_) => MoreDetailsPage(
+                              //                 user: user,
+                              //               )),
+                              //       (route) => false);
+                              // });
+
                             } catch (e) {
                               setState(() {
                                 _isProcessing = false;

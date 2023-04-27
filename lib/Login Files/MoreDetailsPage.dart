@@ -226,42 +226,37 @@ class RadioForRole extends StatefulWidget {
 }
 
 class _RadioForRoleState extends State<RadioForRole> {
-  Role _role = Role.volunteer;
+  String role = "volunteer";
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[
+      children: [
         Expanded(
-          child: ListTile(
-            title: const Text('Volunteer'),
-            leading: Radio<Role>(
-              fillColor: MaterialStateColor.resolveWith((states) => Colors.green),
-              focusColor: MaterialStateColor.resolveWith((states) => Colors.green),
-              value: Role.volunteer,
-              groupValue: _role,
-              onChanged: (Role? value) {
-                setState(() {
-                  _role = value!;
-                  RadioForRole.role = value! as String;
-                });
-              },
-            ),
-          ),
-        ),
-        Expanded(child: ListTile(
-          title: const Text('Trainer'),
-          leading: Radio<Role>(
-            fillColor: MaterialStateColor.resolveWith((states) => Colors.green),
-            value: Role.trainer,
-            groupValue: _role,
-            onChanged: (Role? value) {
+          child: RadioListTile(
+            value: "volunteer",
+            groupValue: role,
+            title: const Text("Volunteer"),
+            onChanged: (v) {
               setState(() {
-                _role = value!;
-                RadioForRole.role = value! as String;
+                role = "volunteer";
+                RadioForRole.role = role;
               });
             },
           ),
-        )),
+        ),
+        Expanded(
+          child: RadioListTile(
+            value: "trainer",
+            groupValue: role,
+            title: const Text("Trainer"),
+            onChanged: (v) {
+              setState(() {
+                role = "trainer";
+                RadioForRole.role = role;
+              });
+            },
+          ),
+        ),
       ],
     );
   }

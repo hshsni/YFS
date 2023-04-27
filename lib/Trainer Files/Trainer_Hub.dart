@@ -5,6 +5,8 @@ import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
 import 'package:youth_compass_application/Pages/ViewTask.dart';
 import 'package:youth_compass_application/Trainer%20Files/tr_dashboard.dart';
 
+import 'ApproveVolunteer.dart';
+
 
 class TrainerHub extends StatefulWidget {
   const TrainerHub({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _TrainerHubState extends State<TrainerHub> {
   void initState() {
     screens = [
       TrainerDash(),
-      ViewTask(),
+      ApproveVolunteer(),
     ];
     super.initState();
   }

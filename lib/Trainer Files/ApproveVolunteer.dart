@@ -3,15 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../Utils/size_config.dart';
 
-class ApproveTrainer extends StatefulWidget {
-  const ApproveTrainer({Key? key}) : super(key: key);
+class ApproveVolunteer extends StatefulWidget {
+  const ApproveVolunteer({Key? key}) : super(key: key);
 
   @override
-  State<ApproveTrainer> createState() => _ApproveTrainer();
+  State<ApproveVolunteer> createState() => _ApproveTrainer();
 }
 
-class _ApproveTrainer extends State<ApproveTrainer> {
-  String selectedClient = "Select Trainer";
+class _ApproveTrainer extends State<ApproveVolunteer> {
+  String selectedClient = "Select Volunteer";
   FirebaseAuth auth = FirebaseAuth.instance;
 
   updateTextandClear() {
@@ -142,7 +142,7 @@ class _ApproveTrainer extends State<ApproveTrainer> {
                                     .then((_) => ScaffoldMessenger.of(context)
                                     .showSnackBar(
                                   const SnackBar(
-                                    content: Text('Approved Trainer!'),
+                                    content: Text('Approved Volunteer!'),
                                   ),
                                 ))
                                     .catchError((error) =>
