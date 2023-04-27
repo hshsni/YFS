@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:youth_compass_application/Login%20Files/ConfirmedPage.dart';
 import 'package:youth_compass_application/main.dart';
-
 import '../../Utils/size_config.dart';
 
 class MoreDetailsPage extends StatefulWidget {
@@ -22,6 +21,7 @@ class _MoreDetailsPage extends State<MoreDetailsPage> {
   bool _isNamePresent = false;
   bool _isEmailPresent = false;
   bool _isRolePresent = false;
+  bool _AllPresent = false;
 
   RegExp emailRegExp = RegExp(
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
@@ -54,14 +54,14 @@ class _MoreDetailsPage extends State<MoreDetailsPage> {
           _isRolePresent = true;
 
         if(_isEmailPresent && _isNamePresent && _isRolePresent)
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (_) => ConfirmedPage()));
+          _AllPresent = true;
 
       } else {
         print('Document does not exist on the database');
       }
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +184,7 @@ class _MoreDetailsPage extends State<MoreDetailsPage> {
                                   });
 
                                   Navigator.pushReplacement(context,
-                                      MaterialPageRoute(builder: (_) => ConfirmedPage()));
+                                      MaterialPageRoute(builder: (_) => ConfirmedPage(user: widget.user,)));
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -219,7 +219,7 @@ class _MoreDetailsPage extends State<MoreDetailsPage> {
 }
 
 class RadioForRole extends StatefulWidget {
-  static String role = "";
+  static String role = "volunteer";
   const RadioForRole({Key? key}) : super(key: key);
   @override
   State<RadioForRole> createState() => _RadioForRoleState();

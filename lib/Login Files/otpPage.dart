@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
+import 'package:youth_compass_application/Login%20Files/ConfirmedPage.dart';
+import 'package:youth_compass_application/Login%20Files/MoreDetailsPage.dart';
 import 'package:youth_compass_application/Login%20Files/SignUpPhone.dart';
 import '../Utils/size_config.dart';
 
@@ -132,23 +134,34 @@ class _otpPageState extends State<otpPage> {
                                   .collection('Users')
                                   .doc(user?.uid);
 
-                              docId.get().then(
-                                    (DocumentSnapshot doc) {
-                                      //in case user is already registered
-                                },
-                                onError: (e) async => await docId.set({
-                              'phone': user?.phoneNumber,
-                              'approved': false
-                              }),
-                              );
+                              docId.get().then((DocumentSnapshot doc) {
+                                //in case user is already registered
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ConfirmedPage(
+                                        user: user,
+                                      ),
+                                    ),
+                                    (route) => false);
+                              }, onError: (e) async {
+                                await docId.set({
+                                  'phone': user?.phoneNumber,
+                                  'approved': false
+                                });
+
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => MoreDetailsPage(
+                                              user: user,
+                                            )),
+                                    (route) => false);
+                              });
 
                               setState(() {
                                 _isProcessing = false;
                               });
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => AdminHub()),
-                                  (route) => false);
                             } catch (e) {
                               setState(() {
                                 _isProcessing = false;

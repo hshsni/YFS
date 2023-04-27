@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
+import 'package:youth_compass_application/Login%20Files/ConfirmedPage.dart';
 import 'package:youth_compass_application/Login%20Files/MoreDetailsPage.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
 import '../Utils/size_config.dart';
@@ -25,9 +26,11 @@ class _SignUpEmailState extends State<SignUpEmail> {
   final _registerFormKey = GlobalKey<FormState>();
 
   final _emailTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
   final _focusEmail = FocusNode();
+  final _focusName = FocusNode();
   final _focusPassword = FocusNode();
 
   bool _isProcessing = false;
@@ -136,6 +139,38 @@ class _SignUpEmailState extends State<SignUpEmail> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal*5.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: _nameTextController,
+                            focusNode: _focusName,
+                            validator: (value) => validateEmail(
+                              email: value,
+                            ),
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              hintText: 'Name',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3,
+                                    color: Color.fromRGBO(52, 73, 85, 1)),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 3, color: Colors.red),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -207,6 +242,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
                         const SizedBox(
                           height: 10.0,
                         ),
+                        RadioForRole(),
                         const SizedBox(height: 30.0),
                         if (_isProcessing)
                           const CircularProgressIndicator()
@@ -257,6 +293,8 @@ class _SignUpEmailState extends State<SignUpEmail> {
 
                                         await docid.set({
                                           'email': user?.email,
+                                          'name': _nameTextController.text,
+                                          'role' : RadioForRole.role,
                                           'approved': false
                                         });
 
@@ -266,7 +304,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
                                               .pushAndRemoveUntil(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                 MoreDetailsPage(user: user)),
+                                                 ConfirmedPage(user: user)),
                                             ModalRoute.withName('/'),
                                           ).then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign Up successful!'))));
                                         }
