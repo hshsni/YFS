@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Login%20Files/login_page.dart';
 
 import '../Trainer Files/Trainer_Hub.dart';
-import '../Volunteer Files/Feedback.dart';
-import '../Volunteer Files/Volunteer_Hub.dart';
-
+import '../Pages/Profile.dart';
+import '../Pages/AppFeedback.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -14,8 +13,6 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
-
 
     return Drawer(
       //backgroundColor: Colors.black,
@@ -27,16 +24,8 @@ class AppDrawer extends StatelessWidget {
               color: Color.fromARGB(255, 172, 62, 65),
             ),
             child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.white24,
-                child: Icon(
-                  CupertinoIcons.person,
-                  color: Colors.white,
-                ),
-              ),
-              title: Text(
-                user?.displayName ?? "User",
-                style: TextStyle(color: Colors.white),
+              title: Image.asset(
+                "assets/icon.png",
               ),
               // subtitle: Text(
               //   user?.uid ?? "id",
@@ -51,32 +40,30 @@ class AppDrawer extends StatelessWidget {
           // ),
           ListTile(
             leading: const Icon(Icons.verified_user),
-            title: const Text('volunteer Profile'),
-            onTap: () => {Navigator.push(context,
-                MaterialPageRoute(builder: (_) => VolunteerHub()))},
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('trainer Settings'),
-            onTap: () => {Navigator.push(context,
-                MaterialPageRoute(builder: (_) => TrainerHub()))},
+            title: const Text('Profile'),
+            onTap: () => {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyProfile()))
+            },
           ),
           ListTile(
             leading: const Icon(Icons.border_color),
             title: const Text('Feedback'),
-            onTap: () => {Navigator.push(context,
-            MaterialPageRoute(builder: (_) => Feedback1()))},
+            onTap: () => {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => AppFeedback()))
+            },
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
-            //onTap: _signOut(context),
+            onTap: () => {_signOut(context)},
           ),
-          ElevatedButton(
-              onPressed: () {
-                _signOut(context);
-              },
-              child: Text('Sign Out')),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       _signOut(context);
+          //     },
+          //     child: Text('Sign Out')),
         ],
       ),
     );

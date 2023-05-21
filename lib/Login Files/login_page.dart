@@ -230,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                                                           MaterialPageRoute(
                                                               builder:
                                                                   (context) =>
-                                                                      AdminHub()),
+                                                                      ConfirmedPage(user: user)),
                                                           (route) => false);
                                                 }
                                             },

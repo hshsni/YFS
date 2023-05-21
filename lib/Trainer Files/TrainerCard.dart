@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddSchool.dart';
-import 'package:youth_compass_application/Admin%20Dash%20Files/View%20Items/ViewSchool.dart';
+import '../Admin Dash Files/ApproveTrainer.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/Add%20Items/AddTrainer.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/View%20Items/ViewTrainer.dart';
 
-import '../Utils/AppDrawer.dart';
+import '../../Utils/AppDrawer.dart';
 
-class SchoolCard extends StatefulWidget {
-  const SchoolCard({Key? key}) : super(key: key);
+class TrainerCard extends StatefulWidget {
+  const TrainerCard({Key? key}) : super(key: key);
 
   @override
-  State<SchoolCard> createState() => _SchoolCard();
+  State<TrainerCard> createState() => _TrainerCard();
 }
 
-class _SchoolCard extends State<SchoolCard> {
+class _TrainerCard extends State<TrainerCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 60,
           title: const Text(
-            'School',
+            'Trainer',
             style: TextStyle(fontSize: 30, color: Colors.black),
           ),
           centerTitle: true,
@@ -31,7 +32,7 @@ class _SchoolCard extends State<SchoolCard> {
             child: SingleChildScrollView(
           child: Column(children: [
             Padding(
-              padding: const EdgeInsets.all(70.0),
+              padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Wrap(
                   spacing: 20.0,
@@ -41,7 +42,7 @@ class _SchoolCard extends State<SchoolCard> {
                       onTap: () {
                         setState(() {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => AddSchool()));
+                              MaterialPageRoute(builder: (_) => AddTrainer()));
                         });
                       },
                       child: SizedBox(
@@ -58,18 +59,24 @@ class _SchoolCard extends State<SchoolCard> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 30.0),
                                     Image.asset(
-                                      "assets/School.png",
+                                      "assets/Trainer.png",
                                       width: 64.0,
                                     ),
                                     SizedBox(height: 16.0),
-                                    Text("Add School",
+                                    Text("Add Trainer",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.0,
                                         )),
+                                    SizedBox(height: 5.0),
+                                    Text(
+                                      "1 Items",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -81,14 +88,72 @@ class _SchoolCard extends State<SchoolCard> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.all(70.0),
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                child: Wrap(
+                  spacing: 20.0,
+                  runSpacing: 20.0,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ApproveTrainer()));
+                        });
+                      },
+                      child: SizedBox(
+                          width: 250.0,
+                          height: 180.0,
+                          child: Card(
+                            color: Colors.white,
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/Trainer.png",
+                                      width: 64.0,
+                                    ),
+                                    SizedBox(height: 16.0),
+                                    Text("Approve Trainer",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0,
+                                        )),
+                                    SizedBox(height: 5.0),
+                                    Text(
+                                      "1 Items",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: Center(
                     child: Wrap(spacing: 20.0, runSpacing: 20.0, children: [
                   GestureDetector(
                     onTap: () {
                       setState(() {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => ViewSchool()));
+                            MaterialPageRoute(builder: (_) => ViewTrainer()));
                       });
                     },
                     child: SizedBox(
@@ -105,18 +170,24 @@ class _SchoolCard extends State<SchoolCard> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  SizedBox(height: 30.0),
                                   Image.asset(
-                                    "assets/School.png",
+                                    "assets/Trainer.png",
                                     width: 64.0,
                                   ),
                                   SizedBox(height: 16.0),
-                                  Text("View School",
+                                  Text("View Trainer",
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20.0,
                                       )),
+                                  SizedBox(height: 5.0),
+                                  Text(
+                                    "1 Items",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

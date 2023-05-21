@@ -66,8 +66,8 @@ class _SignUpPhoneState extends State<SignUpPhone> {
         _focusPhone.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
-        //const Color.fromARGB(255, 235, 215, 164),
+        backgroundColor:
+        const Color.fromARGB(255, 235, 215, 164),
         body: SafeArea(
           child: Column(
             children: <Widget>[

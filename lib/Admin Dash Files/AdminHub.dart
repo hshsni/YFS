@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/AdminDashboard.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/TaskCard.dart';
+import 'package:youth_compass_application/Pages/taskcompletionanalytics.dart';
 
 import 'SchoolCard.dart';
 
@@ -19,7 +20,7 @@ class _AdminHubState extends State<AdminHub> {
   void initState() {
     screens = [
       AdminDash(),
-      TaskCard(),
+      TaskStatusChart(),
       SchoolCard(),
       TaskCard(),
 

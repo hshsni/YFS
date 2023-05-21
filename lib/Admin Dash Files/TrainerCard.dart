@@ -59,6 +59,7 @@ class _TrainerCard extends State<TrainerCard> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
+                                    SizedBox(height: 30.0),
                                     Image.asset(
                                       "assets/Trainer.png",
                                       width: 64.0,
@@ -70,13 +71,6 @@ class _TrainerCard extends State<TrainerCard> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.0,
                                         )),
-                                    SizedBox(height: 5.0),
-                                    Text(
-                                      "1 Items",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
@@ -117,6 +111,7 @@ class _TrainerCard extends State<TrainerCard> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
+                                    SizedBox(height: 30.0),
                                     Image.asset(
                                       "assets/Trainer.png",
                                       width: 64.0,
@@ -128,13 +123,6 @@ class _TrainerCard extends State<TrainerCard> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20.0,
                                         )),
-                                    SizedBox(height: 5.0),
-                                    Text(
-                                      "1 Items",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
@@ -170,6 +158,7 @@ class _TrainerCard extends State<TrainerCard> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
+                                  SizedBox(height: 30.0),
                                   Image.asset(
                                     "assets/Trainer.png",
                                     width: 64.0,
@@ -181,13 +170,6 @@ class _TrainerCard extends State<TrainerCard> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20.0,
                                       )),
-                                  SizedBox(height: 5.0),
-                                  Text(
-                                    "1 Items",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  )
                                 ],
                               ),
                             ),

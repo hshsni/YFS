@@ -29,7 +29,7 @@ class _TrainerDash extends State<TrainerDash> {
       _titleTextController.clear();
       _descriptionTextController.clear();
       final snackBar = SnackBar(
-        content: const Text('Task Added!'),
+        content: const Text('Assigned Task!'),
         action: SnackBarAction(
           label: 'Dismiss',
           onPressed: () {},
@@ -53,10 +53,10 @@ class _TrainerDash extends State<TrainerDash> {
   }
 
   final CollectionReference schools =
-      FirebaseFirestore.instance.collection('School');
+  FirebaseFirestore.instance.collection('School');
   final CollectionReference Task =
-      FirebaseFirestore.instance.collection('Tasks');
-  String selectedClient = "0";
+  FirebaseFirestore.instance.collection('Tasks');
+  String selectedClient = "Select Volunteer";
 
   final _formKey = GlobalKey<FormState>();
   late String _taskName;
@@ -101,7 +101,7 @@ class _TrainerDash extends State<TrainerDash> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[index];
+                  streamSnapshot.data!.docs[index];
 
                   return Card(
                     margin: EdgeInsets.symmetric(
@@ -129,16 +129,16 @@ class _TrainerDash extends State<TrainerDash> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       backgroundColor:
-                                          Color.fromARGB(255, 235, 215, 164),
+                                      Color.fromARGB(255, 235, 215, 164),
                                       content: SingleChildScrollView(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: SizeConfig
-                                                      .blockSizeHorizontal *
+                                                  .blockSizeHorizontal *
                                                   2,
                                               vertical:
-                                                  SizeConfig.blockSizeVertical *
-                                                      4),
+                                              SizeConfig.blockSizeVertical *
+                                                  4),
                                           child: Form(
                                             key: _formKey,
                                             child: Column(
@@ -147,10 +147,10 @@ class _TrainerDash extends State<TrainerDash> {
                                                 Container(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: SizeConfig
-                                                              .blockSizeHorizontal *
+                                                          .blockSizeHorizontal *
                                                           2,
                                                       vertical: SizeConfig
-                                                              .blockSizeHorizontal *
+                                                          .blockSizeHorizontal *
                                                           2),
                                                   decoration: BoxDecoration(
                                                     color: Colors
@@ -163,113 +163,16 @@ class _TrainerDash extends State<TrainerDash> {
                                                     stream: FirebaseFirestore
                                                         .instance
                                                         .collection('Users')
+                                                        .where('role',
+                                                        isEqualTo:
+                                                        'volunteer')
                                                         .snapshots(),
                                                     builder:
                                                         (context, snapshot) {
                                                       List<
-                                                              DropdownMenuItem<
-                                                                  String>>
-                                                          clientItems = [];
-                                                      if (!snapshot.hasData) {
-                                                        return CircularProgressIndicator();
-                                                      } else {
-                                                        final clients = snapshot
-                                                            .data!.docs.reversed
-                                                            .toList();
-
-                                                        clientItems.add(
-                                                            DropdownMenuItem<
-                                                                String>(
-                                                          value: "0",
-                                                          child: Text(
-                                                              "Select Volunteer"),
-                                                        ));
-
-                                                        for (var client
-                                                            in clients) {
-                                                          clientItems.add(
-                                                              DropdownMenuItem<
-                                                                  String>(
-                                                            value: client.id,
-                                                            child: Text(
-                                                                client['name']),
-                                                          ));
-                                                        }
-                                                      }
-                                                      return DropdownButton<
-                                                          String>(
-                                                        items: clientItems,
-
-                                                        onChanged:
-                                                            (clientValue) {
-                                                          setState(() {
-                                                            selectedClient =
-                                                                clientValue!;
-                                                          });
-                                                          print(clientValue);
-                                                        },
-                                                        icon: Padding(
-                                                            //Icon at tail, arrow bottom is default icon
-                                                            padding: EdgeInsets.only(
-                                                                left: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    5),
-                                                            child: Icon(Icons
-                                                                .arrow_circle_down_sharp)),
-                                                        iconEnabledColor:
-                                                            Colors.black,
-                                                        //Icon color
-                                                        style: TextStyle(
-                                                            //te
-                                                            color: Colors.black,
-                                                            //Font color
-                                                            fontSize:
-                                                                20 //font size on dropdown button
-                                                            ),
-
-                                                        dropdownColor:
-                                                            Colors.white,
-                                                        //dropdown background color
-                                                        underline: Container(),
-                                                        //remove underline
-                                                        isExpanded: true,
-                                                        //make true to make width 100%
-
-                                                        value: selectedClient,
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    height: SizeConfig
-                                                            .blockSizeVertical *
-                                                        5),
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          2,
-                                                      vertical: SizeConfig
-                                                              .blockSizeHorizontal *
-                                                          2),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors
-                                                        .white /*const Color.fromARGB(
-                                                        255, 172, 62, 65)*/
-                                                    ,
-                                                  ),
-                                                  child: StreamBuilder<
-                                                      QuerySnapshot>(
-                                                    stream: FirebaseFirestore
-                                                        .instance
-                                                        .collection('School')
-                                                        .snapshots(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      List<
-                                                              DropdownMenuItem<
-                                                                  String>>
-                                                          clientItems = [];
+                                                          DropdownMenuItem<
+                                                              String>>
+                                                      clientItems = [];
                                                       if (!snapshot.hasData) {
                                                         return CircularProgressIndicator();
                                                       } else {
@@ -279,131 +182,127 @@ class _TrainerDash extends State<TrainerDash> {
                                                         clientItems.add(
                                                           DropdownMenuItem<
                                                               String>(
-                                                            value: "0",
+                                                            value:
+                                                            "Select Volunteer",
                                                             child: Text(
-                                                                "Select School"),
+                                                                "Select Volunteer"),
                                                           ),
                                                         );
                                                         for (var client
-                                                            in clients) {
-                                                          clientItems.add(
-                                                            DropdownMenuItem<
-                                                                String>(
-                                                              value: client.id,
-                                                              child: Text(
-                                                                  client.id),
-                                                            ),
-                                                          );
+                                                        in clients) {
+                                                          try {
+                                                            if (client.get(
+                                                                "approved"))
+                                                              clientItems.add(
+                                                                DropdownMenuItem<
+                                                                    String>(
+                                                                  value:
+                                                                  client.id,
+                                                                  child: Text(
+                                                                      client.get(
+                                                                          "name")),
+                                                                ),
+                                                              );
+                                                          } catch (e) {
+                                                            continue;
+                                                          }
                                                         }
                                                       }
                                                       return DropdownButton<
                                                           String>(
                                                         items: clientItems,
+                                                        value: selectedClient,
                                                         onChanged:
                                                             (clientValue) {
                                                           setState(() {
                                                             selectedClient =
-                                                                clientValue!;
+                                                            clientValue!;
                                                           });
-                                                          print(clientValue);
                                                         },
-                                                        icon: Padding(
-                                                            //Icon at tail, arrow bottom is default icon
-                                                            padding: EdgeInsets.only(
-                                                                left: SizeConfig
-                                                                        .blockSizeHorizontal *
-                                                                    5),
-                                                            child: Icon(Icons
-                                                                .arrow_circle_down_sharp)),
-                                                        iconEnabledColor:
-                                                            Colors.black,
-                                                        //Icon color
-                                                        style: TextStyle(
-                                                            //te
-                                                            color: Colors.black,
-                                                            //Font color
-                                                            fontSize:
-                                                                20 //font size on dropdown button
-                                                            ),
-
-                                                        dropdownColor:
-                                                            Colors.white,
-                                                        //dropdown background color
-                                                        underline: Container(),
-                                                        //remove underline
-                                                        isExpanded: true,
-                                                        //make true to make width 100%
-
-                                                        value: selectedClient,
+                                                        dropdownColor: Colors
+                                                            .white, //dropdown background color
+                                                        underline:
+                                                        Container(), //remove underline
+                                                        isExpanded:
+                                                        true, //make true to make width 100%
                                                       );
                                                     },
                                                   ),
                                                 ),
                                                 SizedBox(
                                                     height: SizeConfig
-                                                            .blockSizeVertical *
+                                                        .blockSizeVertical *
                                                         5),
                                                 Center(
                                                   child: ElevatedButton(
                                                     onPressed: () async {
-                                                      if (_titleTextController
-                                                              .text.isEmpty ||
-                                                          _descriptionTextController
-                                                              .text.isEmpty) {
+                                                      if (selectedClient ==
+                                                          "Select Volunteer") {
                                                         ScaffoldMessenger.of(
-                                                                context)
+                                                            context)
                                                             .showSnackBar(
                                                           const SnackBar(
                                                             content: Text(
-                                                                'Please enter all fields'),
+                                                                'Please select a volunteer'),
                                                           ),
                                                         );
                                                       } else {
-                                                        //adding school to firebase along with email as field
-                                                        CollectionReference
-                                                            Task =
-                                                            FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'Tasks');
-
-                                                        Task.doc().set({
-                                                          "title":
-                                                              _titleTextController
-                                                                  .text,
-                                                          "description":
-                                                              _descriptionTextController
-                                                                  .text
-                                                        }).then(
-                                                            updateTextandClear1());
-                                                        if (!mounted) return;
-                                                        return Navigator.of(
+                                                        var collection =
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                            'Tasks');
+                                                        collection
+                                                            .doc(documentSnapshot
+                                                            .id) // <-- Doc ID where data should be updated.
+                                                            .update({
+                                                          'assigned':
+                                                          selectedClient
+                                                              .toString()
+                                                        }) // <-- Updated data
+                                                            .then((_) =>
+                                                            ScaffoldMessenger.of(
                                                                 context)
-                                                            .pop();
+                                                                .showSnackBar(
+                                                              const SnackBar(
+                                                                content: Text(
+                                                                    'Assigned Task!'),
+                                                              ),
+                                                            ))
+                                                            .catchError((error) =>
+                                                            ScaffoldMessenger.of(
+                                                                context)
+                                                                .showSnackBar(
+                                                              const SnackBar(
+                                                                content: Text(
+                                                                    'Error!'),
+                                                              ),
+                                                            ));
+                                                        updateTextandClear();
                                                       }
                                                     },
                                                     style: ElevatedButton
                                                         .styleFrom(
                                                       primary:
-                                                          const Color.fromARGB(
-                                                              255, 172, 62, 65),
+                                                      const Color.fromARGB(
+                                                          255, 172, 62, 65),
                                                       fixedSize: Size(
-                                                          size.width * 0.40,
-                                                          size.height * 0.07),
+                                                          size.width * 0.58,
+                                                          size.height * 0.09),
                                                       shape:
-                                                          RoundedRectangleBorder(
+                                                      RoundedRectangleBorder(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                10), // <-- Radius
+                                                        BorderRadius.circular(
+                                                            10), // <-- Radius
                                                       ),
                                                     ),
                                                     child: const Text(
                                                       'Assign Task',
                                                       style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 25,
+                                                        fontSize: 30,
                                                         fontWeight:
-                                                            FontWeight.w500,
+                                                        FontWeight.w700,
                                                       ),
                                                     ),
                                                   ),
@@ -495,6 +394,136 @@ class _TrainerDash extends State<TrainerDash> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.blockSizeVertical * 5),
+
+                                /*StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance.collection("School").snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData)
+                                        return Text("Loading.....");
+                                      else {
+                                        List<DropdownMenuItem> currencyItems = [DropdownMenuItem(child:Text("SelectSchool"))];
+                                        for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                                          DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                                          currencyItems.add(
+                                            DropdownMenuItem(
+                                              child: Text(
+                                                snap.id,
+                                                style: TextStyle(color: Color(0xff11b719)),
+                                              ),
+                                              value: "${snap.id}",
+                                            ),
+                                          );
+                                        }
+                                        return Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+
+                                            DropdownButton<dynamic>(
+
+                                              items: currencyItems,
+                                              onChanged: (currencyValue) {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                    'Selected Currency value is $currencyValue',
+                                                    style: TextStyle(color: Color(0xff11b719)),
+                                                  ),
+                                                );
+
+                                                setState(() {
+                                                  _schoolName = currencyValue;
+                                                });
+                                                print(_schoolName);
+                                              },
+                                              value: _schoolName,
+                                              isExpanded: false,
+                                              hint: new Text(
+                                                "Choose Currency Type",
+                                                style: TextStyle(color: Color(0xff11b719)),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                    }
+                                    }
+
+                                  ),*/
+
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical:
+                                      SizeConfig.blockSizeVertical * 2,
+                                      horizontal:
+                                      SizeConfig.blockSizeHorizontal * 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .white /*const Color.fromARGB(
+                                        255, 172, 62, 65)*/
+                                    ,
+                                  ),
+                                  child: StreamBuilder<QuerySnapshot>(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('School')
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      List<DropdownMenuItem<String>>
+                                      clientItems = [];
+                                      if (!snapshot.hasData) {
+                                        return CircularProgressIndicator();
+                                      } else {
+                                        final clients = snapshot
+                                            .data!.docs.reversed
+                                            .toList();
+                                        clientItems
+                                            .add(DropdownMenuItem<String>(
+                                          value: "Select Volunteer",
+                                          child: Text("Select School"),
+                                        ));
+                                        for (var client in clients) {
+                                          clientItems
+                                              .add(DropdownMenuItem<String>(
+                                            value: client.id,
+                                            child: Text(client.id),
+                                          ));
+                                        }
+                                      }
+                                      return DropdownButton<String>(
+                                        items: clientItems,
+                                        onChanged: (clientValue) {
+                                          setState(() {
+                                            selectedClient = clientValue!;
+                                          });
+                                          print(clientValue);
+                                        },
+                                        icon: Padding(
+                                          //Icon at tail, arrow bottom is default icon
+                                            padding: EdgeInsets.only(
+                                                left: SizeConfig
+                                                    .blockSizeHorizontal *
+                                                    4),
+                                            child: Icon(
+                                                Icons.arrow_circle_down_sharp)),
+                                        iconEnabledColor: Colors.black,
+                                        //Icon color
+                                        style: TextStyle(
+                                          //te
+                                            color: Colors.black, //Font color
+                                            fontSize:
+                                            20 //font size on dropdown button
+                                        ),
+
+                                        dropdownColor: Colors.white,
+                                        //dropdown background color
+                                        underline: Container(),
+                                        //remove underline
+                                        isExpanded: true,
+                                        value: selectedClient,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: SizeConfig.blockSizeVertical * 5),
                                 TextField(
                                   controller: _descriptionTextController,
                                   keyboardType: TextInputType.multiline,
@@ -547,19 +576,20 @@ class _TrainerDash extends State<TrainerDash> {
                                             .showSnackBar(
                                           const SnackBar(
                                             content:
-                                                Text('Please enter all fields'),
+                                            Text('Please enter all fields'),
                                           ),
                                         );
                                       } else {
                                         //adding school to firebase along with email as field
                                         CollectionReference Task =
-                                            FirebaseFirestore.instance
-                                                .collection('Tasks');
+                                        FirebaseFirestore.instance
+                                            .collection('Tasks');
 
                                         Task.doc().set({
                                           "title": _titleTextController.text,
                                           "description":
-                                              _descriptionTextController.text
+                                          _descriptionTextController.text,
+                                          "assigned": ""
                                         }).then(updateTextandClear());
                                         if (!mounted) return;
                                         return Navigator.of(context).pop();

@@ -115,7 +115,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
         _focusPassword.unfocus();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 235, 215, 164),
         //const Color.fromARGB(255, 235, 215, 164),
         body: SafeArea(
           child: Column(

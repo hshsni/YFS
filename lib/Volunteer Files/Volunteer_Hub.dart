@@ -24,7 +24,7 @@ class _VolunteerHubState extends State<VolunteerHub> {
   void initState() {
     screens = [
       volunteerDash(),
-      Feedback1(),
+
     ];
     super.initState();
   }
@@ -33,7 +33,7 @@ class _VolunteerHubState extends State<VolunteerHub> {
 
   final items = <Widget>[
     Icon(Icons.view_agenda_sharp, size: 30),
-    Icon(Icons.feedback_rounded,size: 30,)
+
 
   ];
 

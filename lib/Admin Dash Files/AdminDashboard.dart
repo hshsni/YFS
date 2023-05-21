@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youth_compass_application/Admin%20Dash%20Files/SchoolCard.dart';
+import 'package:youth_compass_application/Pages/taskcompletionanalytics.dart';
 
 import 'TrainerCard.dart';
 import '../Utils/AppDrawer.dart';
@@ -75,7 +76,7 @@ class _AdminDash extends State<AdminDash> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => const SchoolCard()));
+                                      builder: (_) => TaskStatusChart()));
                             });
                           }
                         },
@@ -93,6 +94,7 @@ class _AdminDash extends State<AdminDash> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     children: [
+                                      const SizedBox(height: 20.0),
                                       Image.asset(
                                         item == "Data Analytics"
                                             ? "assets/grade.png"
@@ -106,13 +108,6 @@ class _AdminDash extends State<AdminDash> {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20.0,
                                           )),
-                                      const SizedBox(height: 5.0),
-                                      const Text(
-                                        "3 Items",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      )
                                     ],
                                   ),
                                 ),

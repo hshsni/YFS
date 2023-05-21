@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:youth_compass_application/Admin%20Dash%20Files/AdminHub.dart';
 import '../Utils/size_config.dart';
 import '../Admin Dash Files/AdminDashboard.dart';
 import '../Trainer Files/Trainer_Hub.dart';
@@ -32,7 +33,7 @@ class _ConfirmedPageState extends State<ConfirmedPage> {
           type = documentSnapshot['role'];
           if (type == "admin") {
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const AdminDash()));
+                context, MaterialPageRoute(builder: (_) => const AdminHub()));
           } else if (type == "trainer") {
             Navigator.push(
                 context, MaterialPageRoute(builder: (_) => const TrainerHub()));
